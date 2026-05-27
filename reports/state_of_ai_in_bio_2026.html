@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The State of AI in Bio — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1117;
+    --ink-soft: #3a3f52;
+    --ink-muted: #7a7f96;
+    --rule: #dde0ea;
+    --page: #faf9f7;
+    --accent: #1a3a8f;
+    --accent-warm: #c0392b;
+    --accent-teal: #0d7c6b;
+    --highlight: #f0f4ff;
+    --highlight-warm: #fff5f3;
+    --chart-1: #1a3a8f;
+    --chart-2: #0d7c6b;
+    --chart-3: #c0392b;
+    --chart-4: #7b5ea7;
+    --chart-5: #d4800a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--ink);
+    color: white;
+    padding: 80px 80px 60px;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -100px;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,58,143,0.55) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40%;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(13,124,107,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 28px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700;
+    line-height: 1.1;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+  .cover h1 em { font-style: italic; color: rgba(255,255,255,0.75); }
+  .cover-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 520px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 48px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 24px;
+  }
+  .cover-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .cover-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .cover-meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  /* ── LAYOUT ── */
+  .page-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 64px 0 32px;
+  }
+  .section-rule-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .section-rule-line { flex: 1; height: 1px; background: var(--rule); }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+    margin-top: 32px;
+  }
+  p { margin-bottom: 18px; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 500; }
+
+  /* ── EXECUTIVE SUMMARY ── */
+  .exec-summary {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    padding: 36px 40px;
+    margin: 40px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .exec-summary-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .exec-summary p { font-size: 15px; line-height: 1.8; margin-bottom: 14px; }
+  .exec-summary p:last-child { margin-bottom: 0; }
+
+  /* ── STAT CARDS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 8px 8px 0 0;
+    background: var(--accent);
+  }
+  .stat-card.green::before { background: var(--accent-teal); }
+  .stat-card.red::before { background: var(--accent-warm); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-num sup { font-size: 20px; vertical-align: super; }
+  .stat-label { font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+  .stat-change {
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-teal);
+    letter-spacing: 0.05em;
+  }
+  .stat-change.neg { color: var(--accent-warm); }
+
+  /* ── BAR CHARTS ── */
+  .chart-block { margin: 32px 0; }
+  .chart-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+  }
+  .bar-item { margin-bottom: 14px; }
+  .bar-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .bar-label { font-size: 13px; color: var(--ink-soft); }
+  .bar-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .bar-track {
+    background: var(--rule);
+    border-radius: 2px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+    transition: width 0.8s ease;
+  }
+  .bar-fill.green { background: var(--accent-teal); }
+  .bar-fill.red { background: var(--accent-warm); }
+  .bar-fill.purple { background: var(--chart-4); }
+  .bar-fill.amber { background: var(--chart-5); }
+
+  /* ── COMPARISON CHART (2024 vs 2026) ── */
+  .compare-block { margin: 32px 0; }
+  .compare-item { margin-bottom: 20px; }
+  .compare-label { font-size: 13px; color: var(--ink); margin-bottom: 8px; font-weight: 500; }
+  .compare-rows { display: flex; flex-direction: column; gap: 5px; }
+  .compare-row { display: flex; align-items: center; gap: 12px; }
+  .compare-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    width: 34px;
+    flex-shrink: 0;
+  }
+  .compare-track { flex: 1; background: var(--rule); border-radius: 2px; height: 10px; overflow: hidden; }
+  .compare-fill { height: 100%; border-radius: 2px; }
+  .compare-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    width: 36px;
+    text-align: right;
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 4px solid var(--rule);
+    padding: 20px 28px;
+    margin: 32px 0;
+    background: white;
+    border-radius: 0 4px 4px 0;
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .pullquote-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+  }
+
+  /* ── SEGMENT SECTION ── */
+  .segment-header {
+    background: var(--ink);
+    color: white;
+    padding: 48px;
+    margin: 0 -48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .segment-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,58,143,0.4) 0%, transparent 70%);
+  }
+  .segment-header h2 { color: white; margin-bottom: 8px; }
+  .segment-header p { color: rgba(255,255,255,0.6); max-width: 560px; }
+
+  .segment-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 32px 0;
+  }
+  .segment-tab {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 24px 20px;
+  }
+  .segment-tab-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .badge-blue { background: var(--highlight); color: var(--accent); }
+  .badge-teal { background: #e8f7f4; color: var(--accent-teal); }
+  .badge-warm { background: var(--highlight-warm); color: var(--accent-warm); }
+  .segment-tab h3 { margin-top: 0; font-size: 16px; }
+  .segment-tab .n { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-muted); margin-top: -8px; margin-bottom: 12px; }
+  .segment-stat { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+  .segment-stat:last-of-type { border-bottom: none; }
+  .segment-stat-label { font-size: 12px; color: var(--ink-soft); }
+  .segment-stat-val { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); }
+
+  /* ── OPEN TEXT THEMES ── */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+  }
+  .theme-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 22px 20px;
+  }
+  .theme-card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .theme-card h3 { font-size: 15px; margin-top: 0; margin-bottom: 8px; }
+  .theme-card p { font-size: 13px; margin-bottom: 0; }
+  .theme-card blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--rule);
+    padding-left: 12px;
+    margin-top: 10px;
+  }
+
+  /* ── METHODOLOGY ── */
+  .methodology {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 32px 36px;
+    margin: 40px 0;
+  }
+  .methodology-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 14px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.45);
+    padding: 36px 80px;
+    margin-top: 80px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer strong { color: rgba(255,255,255,0.7); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 48px 0;
+  }
+
+  /* ── ANNOTATION ── */
+  .annotation {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: var(--highlight);
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin: 28px 0;
+  }
+  .highlight-box.warm { background: var(--highlight-warm); }
+  .highlight-box p { margin-bottom: 10px; font-size: 14px; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+
+  /* ── PRINT-FRIENDLY ── */
+  @media print {
+    .cover { min-height: 300px; }
+    .section-rule { padding: 40px 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════ COVER ════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-label">BioLiterate Research · Annual Survey Report</div>
+  <h1>The State of <em>AI in Bio</em><br>2026</h1>
+  <p class="cover-sub">From curiosity to commitment: what researchers, clinicians, and biopharma leaders are sharing about AI adoption, confidence, concerns, and unmet needs in the biomedical industry.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Respondents</span>
+      <span class="cover-meta-value">115 professionals</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Field Period</span>
+      <span class="cover-meta-value">Feb – Mar 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Geographies</span>
+      <span class="cover-meta-value">US, Europe, India</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Year-on-Year</span>
+      <span class="cover-meta-value">2nd annual (2024 baseline)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ BODY ════════════════════════════════ -->
+<div class="page-container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section-rule">
+    <span class="section-rule-num">00</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <div class="exec-summary">
+    <div class="exec-summary-label">Executive Summary</div>
+    <p>Two years into tracking AI sentiment and adoption across the life sciences ecosystem, 2026 marks an inflection point: the biomedical field has moved decisively from curiosity to engagement. Nearly two-thirds of survey respondents now actively use or experiment with AI in their daily work, a sharp rise from the cautious optimism of our 2024 baseline. Confidence in discussing AI has improved by 46%, and the share of professionals who say AI upskilling is "very" or "extremely" crucial has grown to 58%.</p>
+    <p>Yet overall, trust remains a key issue. Hallucinations in critical applications and over-reliance on AI replacing human judgment remain top-of-mind concerns, cited by 59% and 53% of respondents, respectively. Biopharma and healthcare companies face a persistent skills-and-integration gap, with 41% pointing to both lack of AI expertise and system integration challenges as the primary causes for slow progress.</p>
+    <p>Across functional segments, scientific and R&D professionals are expectedly focused on data validation rigor and the risk of hallucinated outputs. Clinical and medical practitioners center their concerns on patient safety, decision-making transparency, and data privacy. Commercial and operational functions are most active in applying AI to analytics and knowledge work, but express the least confidence in evaluating what tools are not only trustworthy, but also ROI-positive.</p>
+    <p>Ultimately, what the biomedical field most wants now is grounded, practical evidence: 72% of respondents identified real-life case studies and lessons learned as their top resource need — more than role-specific training, ethics & governance toolkits, or regulatory guidance combined.</p>
+  </div>
+
+  <!-- SECTION 1: WHO RESPONDED -->
+  <div class="section-rule">
+    <span class="section-rule-num">01</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>Methodology & Sample</h2>
+
+  <p>The 2026 survey drew 115 respondents across biopharma, life sciences and healthcare, and was fielded between February and March 2026. Pharma and biotech professionals represented the dominant segment at approximately 75%, followed by clinical practitioners (15%), academic and research institutions (6%), and MedTech/Digital Health (3%).</p>
+
+  <p>The respondent base skews toward seniority and experience. Nearly half (43%) report 16 or more years of field experience, and an additional 29% have 8–15 years. Only 7% are early in their careers with fewer than two years of experience. This weighting toward seasoned professionals is a meaningful signal: the AI sentiments reflected in these results comes from experienced practitioners with deep domain expertise who are evaluating AI on its actual real-world merits.</p>
+
+  <div style="background: white; border: 1px solid var(--rule); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 24px 28px; margin: 28px 0;">
+    <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">A note on respondent classification</div>
+    <p style="font-size: 13px; color: var(--ink-soft); margin-bottom: 0;">A number of write-in "Other" responses at both the field and functional level were reassigned to their closest established category — for example, Regulatory Affairs into Clinical Development, and AI Engineering and pre-clinical consulting into Research.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">115</div>
+      <div class="stat-label">Total respondents across life sciences, healthcare, and research</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-num">71<sup>%</sup></div>
+      <div class="stat-label">Based in the United States; remainder primarily France (15%), Switzerland (6%), UK and Germany (3% each)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">72<sup>%</sup></div>
+      <div class="stat-label">Have 8 or more years of experience in their field</div>
+    </div>
+  </div>
+
+  <p>Functionally, Research (discovery and pre-clinical) was the largest single group at 29%, followed by Commercial Functions at 23%, Clinical Development at 13%, and Direct Patient Care at 10%. This distribution enabled meaningful cross-functional comparison — particularly among the three primary segments analyzed in depth later in this report: R&D/Scientific, Clinical/Medical, and Operational/Commercial.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Respondents by functional area — 2026 survey (n=115)</div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Research (Academia, Discovery, Pre-clinical, AI Engineering)</span><span class="bar-pct">32%</span></div><div class="bar-track"><div class="bar-fill" style="width:32%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Commercial Functions (incl. Sales, Marketing & Corporate Development)</span><span class="bar-pct">27%</span></div><div class="bar-track"><div class="bar-fill" style="width:27%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Clinical Development (incl. Regulatory Affairs)</span><span class="bar-pct">16%</span></div><div class="bar-track"><div class="bar-fill" style="width:16%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Support Functions (IT, Finance, HR, Facilities, Manufacturing, Legal & Compliance)</span><span class="bar-pct">15%</span></div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Direct Patient Care & Services (incl. Nursing Administration)</span><span class="bar-pct">10%</span></div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div></div>
+  </div>
+
+  <!-- SECTION 2: CONFIDENCE & READINESS -->
+  <div class="section-rule">
+    <span class="section-rule-num">02</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>Confidence rising, urgency sharpening: two years of change</h2>
+
+  <p>The single most striking shift between 2024 and 2026 is in AI confidence. In 2024, 66% of respondents rated their comfort discussing AI at work at 2 or below on a five-point scale, with a mean of just 2.3. By 2026, the mean has climbed to 3.35, a 46% improvement. Biomedical professionals have become more familiar with generative AI and report meaningfully greater comfort engaging with it in professional contexts.</p>
+
+  <div class="compare-block">
+    <div class="chart-title">Key metrics: 2024 vs 2026</div>
+
+    <div class="compare-item">
+      <div class="compare-label">AI confidence (mean score, 1–5 scale)</div>
+      <div class="compare-rows">
+        <div class="compare-row">
+          <span class="compare-year">2024</span>
+          <div class="compare-track"><div class="compare-fill" style="width:46%; background:var(--rule);height:10px;border-radius:2px;background:#dde0ea"></div></div>
+          <span class="compare-val">2.3</span>
+        </div>
+        <div class="compare-row">
+          <span class="compare-year">2026</span>
+          <div class="compare-track"><div class="compare-fill" style="width:67%; background:var(--accent);height:10px;border-radius:2px;"></div></div>
+          <span class="compare-val">3.35</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-item">
+      <div class="compare-label">Upskilling rated "very" or "extremely" crucial (% rating 4–5)</div>
+      <div class="compare-rows">
+        <div class="compare-row">
+          <span class="compare-year">2024</span>
+          <div class="compare-track"><div class="compare-fill" style="width:51%; background:#dde0ea;height:10px;border-radius:2px;"></div></div>
+          <span class="compare-val">51%</span>
+        </div>
+        <div class="compare-row">
+          <span class="compare-year">2026</span>
+          <div class="compare-track"><div class="compare-fill" style="width:58%; background:var(--accent);height:10px;border-radius:2px;"></div></div>
+          <span class="compare-val">58%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-item">
+      <div class="compare-label">Active AI engagement (daily users + experimenters)</div>
+      <div class="compare-rows">
+        <div class="compare-row">
+          <span class="compare-year">2024</span>
+          <div class="compare-track"><div class="compare-fill" style="width:35%; background:#dde0ea;height:10px;border-radius:2px;"></div></div>
+          <span class="compare-val">~35%</span>
+        </div>
+        <div class="compare-row">
+          <span class="compare-year">2026</span>
+          <div class="compare-track"><div class="compare-fill" style="width:67%; background:var(--accent-teal);height:10px;border-radius:2px;"></div></div>
+          <span class="compare-val">67%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <p>The urgency around AI upskilling has intensified modestly from 51% rating it highly crucial in 2024 to 58% in 2026. Actual behavior on the other hand has clearly evolved; in 2024, 36% of respondents described themselves as "curious but not yet integrated." By 2026, that curiosity has converted to engagement for 67% of respondents: 38% now actively use AI tools daily and 29% are in active experimentation. The widespread availability of free LLMs with powerful capabilities has enabled self-exploration, even though most companies spent more on tools blocking uncensored access to general public frontier models than on internal AI deployment.</p>
+
+  <div class="pullquote">
+    <p>"Things are moving very fast on multiple fronts and it's hard to keep up and invest in longer-term projects that might be disrupted in the near future."</p>
+    <span class="pullquote-attr">— AI Engineering professional, 2026 survey respondent</span>
+  </div>
+
+  <!-- SECTION 3: WHERE AI IS BEING APPLIED -->
+  <div class="section-rule">
+    <span class="section-rule-num">03</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>Where AI is actually being applied today</h2>
+
+  <p>When respondents described which areas their organizations are currently using or piloting AI, knowledge work emerged as the clear leader: 64% cited literature review and data documentation as active AI deployment areas. Commercial analytics and market intelligence followed at 47%, and drug discovery and molecular modeling at 37%. Clinical applications — diagnostics, decision support, precision medicine — are present but still in the minority at 19%, suggesting that AI in direct clinical settings remains nascent and closely scrutinized.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Organizational AI/ML deployment by area — 2026 (n=70 respondents with active AI use)</div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Knowledge work (literature review, documentation)</span><span class="bar-pct">64%</span></div><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Commercial analytics & market intelligence</span><span class="bar-pct">47%</span></div><div class="bar-track"><div class="bar-fill" style="width:47%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Drug discovery, molecular modeling, structure prediction</span><span class="bar-pct">37%</span></div><div class="bar-track"><div class="bar-fill" style="width:37%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Clinical care (diagnostics, decision support)</span><span class="bar-pct">19%</span></div><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Regulatory & compliance</span><span class="bar-pct">16%</span></div><div class="bar-track"><div class="bar-fill" style="width:16%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Clinical trials (design, patient selection)</span><span class="bar-pct">14%</span></div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Pharmacovigilance & safety monitoring</span><span class="bar-pct">13%</span></div><div class="bar-track"><div class="bar-fill" style="width:13%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Manufacturing & quality control</span><span class="bar-pct">9%</span></div><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div></div>
+  </div>
+
+  <p>Among those who have seen measurable improvements from AI adoption (roughly one-third of all respondents), the benefits are concentrated in productivity and efficiency: 76% cited team productivity and satisfaction as an area of improvement, followed by cost reduction (55%) and quality of insights and decisions (43%). Patient outcome improvements were not reported by any respondent in 2026 — a reminder that the field's current AI layer remains largely organizational and analytical rather than directly therapeutic.</p>
+
+  <p>Conversely, among respondents who experienced AI deployment setbacks, the leading causes were lack of interpretability or trust in AI outputs (67%), data quality or availability issues (60%), and a tie between unrealistic expectations or vendor limitations and integration or workflow challenges (60% and 53% respectively). These patterns are consistent: AI in bio is delivering productivity gains in the near term while exposing deep structural challenges around data availability, output quality and workflow fit.</p>
+
+  <!-- SECTION 4: CONCERNS & BARRIERS -->
+  <div class="section-rule">
+    <span class="section-rule-num">04</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>The Major Challenges Holding AI Adoption Back</h2>
+
+  <p>At the core of biomedicine is the "do no harm" principle. It comes as no surprise, then, that key concerns about AI in bio are rooted in the question: what happens when AI is wrong? Hallucinations or erroneous outputs in critical applications top the list by a significant margin, cited by 59% of respondents as a top-three concern. Over-reliance on AI replacing human judgment follows at 53%. Far from resisting change, these results reflect a scientific community demanding accountability — one that wants to be met with the right conditions before committing. Scientists, in essence, are asking: 1. Show me it works. 2. Show me it's safe. 3. Then we'll talk.</p>
+
+  <div class="stat-row">
+    <div class="stat-card red">
+      <div class="stat-num">59<sup>%</sup></div>
+      <div class="stat-label">Cite hallucinations or erroneous AI outputs as a top concern — the #1 fear in biomedicine</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-num">53<sup>%</sup></div>
+      <div class="stat-label">Concerned about over-reliance on AI replacing human judgment</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">34<sup>%</sup></div>
+      <div class="stat-label">Flag data privacy and security breaches as a leading concern</div>
+    </div>
+  </div>
+
+  <div class="chart-block">
+    <div class="chart-title">Biggest concerns about AI in biomedicine — top 3 selections (n=102)</div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Hallucinations or erroneous outputs in critical applications</span><span class="bar-pct">59%</span></div><div class="bar-track"><div class="bar-fill red" style="width:59%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Over-reliance on AI replacing human judgment</span><span class="bar-pct">53%</span></div><div class="bar-track"><div class="bar-fill red" style="width:53%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Data privacy and security breaches</span><span class="bar-pct">34%</span></div><div class="bar-track"><div class="bar-fill" style="width:34%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Validation and reproducibility challenges</span><span class="bar-pct">27%</span></div><div class="bar-track"><div class="bar-fill" style="width:27%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Lack of transparency (black box problem)</span><span class="bar-pct">29%</span></div><div class="bar-track"><div class="bar-fill" style="width:29%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Job displacement and workforce impacts</span><span class="bar-pct">25%</span></div><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Bias leading to health inequities</span><span class="bar-pct">21%</span></div><div class="bar-track"><div class="bar-fill" style="width:21%"></div></div></div>
+  </div>
+
+  <h3>Organizational adoption barriers</h3>
+  <p>At the organizational level, barriers to adoption are structural to the biomedical field. Lack of AI/ML expertise and AI integration challenges with existing systems are tied at 41% — both representing systemic gaps rather than one-off hurdles. Data privacy and security concerns closely follow at 40%, reflecting the biomedical industry's sensitivity to patient data regulation. Critically, 33% of respondents cite a lack of proven use cases or clear value — suggesting that despite rapid public-market enthusiasm for AI in life sciences, many practitioners in the field still haven't seen the evidence that would justify deeper organizational commitment.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Biggest barriers to AI adoption in organizations (n=96)</div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Lack of AI/ML expertise</span><span class="bar-pct">41%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:41%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Integration with existing systems</span><span class="bar-pct">41%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:41%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Data privacy & security concerns</span><span class="bar-pct">40%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:40%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Lack of proven use cases or clear value</span><span class="bar-pct">33%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:33%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Data quality or infrastructure issues</span><span class="bar-pct">31%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:31%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Budget constraints and unclear ROI</span><span class="bar-pct">25%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:25%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Cultural resistance or lack of leadership buy-in</span><span class="bar-pct">25%</span></div><div class="bar-track"><div class="bar-fill amber" style="width:25%"></div></div></div>
+  </div>
+
+  <!-- SECTION 5: ETHICS & GOVERNANCE -->
+  <div class="section-rule">
+    <span class="section-rule-num">05</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>Ethics and Governance: What Matters Most</h2>
+
+  <p>When asked which ethical considerations are most important for AI adoption in their roles, respondents prioritized human oversight and accountability above all else — cited by 53% — followed closely by patient data privacy and security (43%), transparency and explainability of AI decisions (43%), and intellectual property and data ownership (42%). Taken together, these four priorities signal that the field already has a clear understanding of what responsible AI should look like, and it is rooted in accountability, transparency, the protection of patients and scientific integrity.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">Most important ethical considerations for AI adoption (n=93, up to 4 selections)</div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Human oversight & accountability</span><span class="bar-pct">53%</span></div><div class="bar-track"><div class="bar-fill purple" style="width:53%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Patient data privacy & security</span><span class="bar-pct">43%</span></div><div class="bar-track"><div class="bar-fill purple" style="width:43%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Transparency & explainability of AI decisions</span><span class="bar-pct">43%</span></div><div class="bar-track"><div class="bar-fill purple" style="width:43%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Intellectual property & data ownership</span><span class="bar-pct">42%</span></div><div class="bar-track"><div class="bar-fill purple" style="width:42%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Regulatory compliance</span><span class="bar-pct">27%</span></div><div class="bar-track"><div class="bar-fill purple" style="width:27%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Clinical safety & efficacy validation</span><span class="bar-pct">26%</span></div><div class="bar-track"><div class="bar-fill purple" style="width:26%"></div></div></div>
+  </div>
+
+  <p>On the question of whose perspectives matter most for responsible AI governance in biomedicine, clinicians and healthcare providers led (51%), followed by ethics and governance experts (48%) and patients and patient advocates (42%). Yet as of today, the loudest voice in the room belongs to AI developers — whose product launch cadence and market narratives set the terms of the AI in Bio conversation at a speed that leaves clinicians, regulators, and patients perpetually catching up. The gap between who the field believes should shape responsible AI and who is actually shaping it may be the most consequential governance challenge of this moment.</p>
+
+  <!-- SECTION 6: LEARNING & RESOURCES -->
+  <div class="section-rule">
+    <span class="section-rule-num">06</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>What the field wants to learn — and how</h2>
+
+  <p>Professional networks and communities of practice are the leading source of AI information in biomedicine, cited by 57% of respondents. Social media, primarily LinkedIn, follows at 50%, and podcasts, webinars, and online courses at 47%. Scientific journals, often considered the primary knowledge channel in the life sciences, ranked fourth at 37%. This ordering underscores a notable shift: peer-to-peer and informal channels are now as or more important than formal publications for staying current on AI.</p>
+
+  <p>In terms of AI technologies professionals most want to better understand, LLMs and generative AI for healthcare topped the list at 68% — significantly ahead of all other categories. Medical literature search tools such as OpenEvidence and Elicit came second at 42%, followed by life sciences R&D platforms at 35% and protein structure modeling (AlphaFold, RoseTTAFold) at 28%. The primacy of LLMs reflects what most practitioners already have personal access to (Anthropic's Claude, OpenAI's ChatGPT, Google's Gemini), regardless of their functional area or organization size.</p>
+
+  <div class="chart-block">
+    <div class="chart-title">AI/ML technologies professionals most want to better understand (n=102)</div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">LLMs & generative AI for healthcare (ChatGPT Health, Claude for Life Sciences, etc.)</span><span class="bar-pct">68%</span></div><div class="bar-track"><div class="bar-fill green" style="width:68%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Medical literature search (OpenEvidence, Elicit, etc.)</span><span class="bar-pct">42%</span></div><div class="bar-track"><div class="bar-fill green" style="width:42%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Life sciences R&D platforms (Benchling, LIMS with AI)</span><span class="bar-pct">35%</span></div><div class="bar-track"><div class="bar-fill green" style="width:35%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Protein structure & molecular modeling (AlphaFold, RoseTTAFold)</span><span class="bar-pct">28%</span></div><div class="bar-track"><div class="bar-fill green" style="width:28%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">EHR-integrated AI (Epic Art, Oracle Health)</span><span class="bar-pct">20%</span></div><div class="bar-track"><div class="bar-fill green" style="width:20%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Medical imaging & diagnostics AI</span><span class="bar-pct">19%</span></div><div class="bar-track"><div class="bar-fill green" style="width:19%"></div></div></div>
+    <div class="bar-item"><div class="bar-label-row"><span class="bar-label">Medical scribes (Abridge, Nuance DAX)</span><span class="bar-pct">11%</span></div><div class="bar-track"><div class="bar-fill green" style="width:11%"></div></div></div>
+  </div>
+
+  <p>The resource most urgently wanted is practical, grounded evidence: 72% of respondents named real-life case studies and lessons learned as their top resource need — far ahead of role-specific AI literacy training (50%), AI experts' perspectives and advocacy (34%), and ethics and governance tools (32%). This is a consistent theme across the 2024 and 2026 surveys: biomedical professionals trust experience over theory, and want to learn from peers who have already navigated the ups and downs of real-life implementation.</p>
+
+  <!-- ════ SECTION 7: FUNCTIONAL SEGMENT DEEP-DIVE ════ -->
+  <div class="section-rule">
+    <span class="section-rule-num">07</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <div class="segment-header">
+    <h2>Three lenses on one field:<br>R&D, Clinical & Operational perspectives</h2>
+    <p>Survey respondents were grouped into three functional segments for deeper analysis — R&D/Scientific (n=35, 30%), Clinical/Medical Practitioners (n=27, 24%), and Operational/Commercial (n=53, 46%). The segments show meaningfully different AI orientations, priority concerns, and resource needs.</p>
+  </div>
+
+  <div style="overflow-x: auto; margin: 32px 0;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+      <thead>
+        <tr>
+          <th style="text-align: left; padding: 12px 16px; background: var(--ink); color: white; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; width: 22%;">Metric</th>
+          <th style="text-align: left; padding: 12px 16px; background: var(--accent); color: white; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">R&D / Scientific<br><span style="font-size: 9px; opacity: 0.75; font-weight: 400;">n=35 · 30%</span></th>
+          <th style="text-align: left; padding: 12px 16px; background: var(--accent-teal); color: white; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Clinical / Medical<br><span style="font-size: 9px; opacity: 0.75; font-weight: 400;">n=27 · 24%</span></th>
+          <th style="text-align: left; padding: 12px 16px; background: var(--accent-warm); color: white; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Commercial & Operational<br><span style="font-size: 9px; opacity: 0.75; font-weight: 400;">n=53 · 46%</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: white;">
+          <td style="padding: 12px 16px; color: var(--ink-muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--rule); vertical-align: top;">Includes</td>
+          <td style="padding: 12px 16px; color: var(--ink-soft); border-bottom: 1px solid var(--rule); vertical-align: top;">Academia, Discovery, Pre-clinical, AI Engineering</td>
+          <td style="padding: 12px 16px; color: var(--ink-soft); border-bottom: 1px solid var(--rule); vertical-align: top;">Clinical Development, Regulatory Affairs, Direct Patient Care</td>
+          <td style="padding: 12px 16px; color: var(--ink-soft); border-bottom: 1px solid var(--rule); vertical-align: top;">Commercial, Corporate Dev, Support Functions</td>
+        </tr>
+        <tr style="background: var(--page);">
+          <td style="padding: 12px 16px; color: var(--ink-muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--rule); vertical-align: top;">Top concern</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Hallucinations & erroneous outputs</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Patient data privacy & safety</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Over-reliance on AI replacing human judgment</td>
+        </tr>
+        <tr style="background: white;">
+          <td style="padding: 12px 16px; color: var(--ink-muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--rule); vertical-align: top;">Top barrier</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Data quality & infrastructure</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Integration challenges & lack of trust</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Skills gap & unclear ROI</td>
+        </tr>
+        <tr style="background: var(--page);">
+          <td style="padding: 12px 16px; color: var(--ink-muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--rule); vertical-align: top;">Most wanted AI tool</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Protein & molecular modeling (AlphaFold, RoseTTAFold)</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">EHR-integrated AI (Epic, Oracle Health)</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">LLMs & generative AI (Claude, ChatGPT, Gemini)</td>
+        </tr>
+        <tr style="background: white;">
+          <td style="padding: 12px 16px; color: var(--ink-muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--rule); vertical-align: top;">Primary AI use case</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Drug discovery & literature review</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Clinical trials design & patient selection</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; border-bottom: 1px solid var(--rule); vertical-align: top;">Commercial analytics & knowledge management</td>
+        </tr>
+        <tr style="background: var(--page);">
+          <td style="padding: 12px 16px; color: var(--ink-muted); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; vertical-align: top;">Key resource need</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; vertical-align: top;">Peer case studies from comparable settings</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; vertical-align: top;">Regulatory guidance & clinical validation evidence</td>
+          <td style="padding: 12px 16px; color: var(--ink); font-weight: 500; vertical-align: top;">Role-specific AI literacy training</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>R&D and scientific professionals: rigorous skeptics under pressure</h3>
+  <p>Researchers and pre-clinical scientists represent the segment with the highest domain expertise and — not coincidentally — the most specific and articulate concerns about AI quality. Open-text responses from this group consistently return to two themes: the problem of hallucinated or uncited outputs in scientific contexts, and the structural challenge of data quality that makes AI predictions unreliable.</p>
+
+  <div class="theme-grid">
+    <div class="theme-card">
+      <span class="theme-card-tag" style="color:var(--accent)">R&D Voice · Hallucination risk</span>
+      <h3>AI doesn't know what it doesn't know</h3>
+      <p>A drug discovery researcher with 25 years of computational chemistry experience noted that predictive models in molecular space still suffer from poor translation of multi-parameter optimization — and that the field is "not there yet."</p>
+      <blockquote>"Everything from inferences, hypotheses, predictive models — current implementations are rife with challenges. Poor predictive power and validation capability in molecular space... underscored by seemingly insurmountable data quantity, quality, congruences, and accessibility issues."</blockquote>
+    </div>
+    <div class="theme-card">
+      <span class="theme-card-tag" style="color:var(--accent)">R&D Voice · Validation</span>
+      <h3>The big AI labs don't know biology</h3>
+      <p>The validation gap in biomedicine is structural: models trained on broad internet data have no inherent grounding in biological accuracy. The stakes of an error like a hallucinated gene sequence, or a fabricated citation in a regulatory document are categorically different from a wrong answer in a general knowledge query. R&D respondents were the most vocal about this gap, pointing to a fundamental misalignment between what frontier AI labs are optimizing for and what the life sciences community actually need.</p>
+      <blockquote>"The big AI labs don't know biology and aren't building for us. They don't care about hallucinated DNA sequences or citations."</blockquote>
+    </div>
+  </div>
+
+  <p>Organizationally, R&D respondents' primary AI use is concentrated in drug discovery and molecular modeling (37% of those with active AI) and knowledge work like literature review. Protein structure and molecular modeling tools (AlphaFold, RoseTTAFold) are the category most distinctively sought by this segment, alongside medical literature search platforms. Their resource priority is concrete evidence of working AI systems in discovery research — not theory, but documented case studies of what has actually succeeded and failed in comparable settings.</p>
+
+  <h3>Clinical and medical practitioners: cautious, accountability-first</h3>
+  <p>Clinical development professionals and direct patient care practitioners put the patient at the center of their decisions. Human oversight and accountability is the leading ethical concern for this segment, followed immediately by patient data privacy and clinical safety and efficacy validation. Unlike R&D or commercial respondents, this segment's relationship to AI is inseparable from the question of liability: who is accountable when an AI-informed clinical decision goes wrong?</p>
+
+  <div class="theme-grid">
+    <div class="theme-card">
+      <span class="theme-card-tag" style="color:var(--accent-teal)">Clinical Voice · Validation</span>
+      <h3>AI is moving into clinical development fast — and the key challenge is trust</h3>
+      <p>One clinical development professional identified three simultaneous pressures: the rapid pace of AI integration into clinical workflows, the persistent challenge of validation, and the need for early regulator engagement.</p>
+      <blockquote>"AI is moving forward rapidly into clinical development. Key challenge is validation and trust — opportunities in rare disease and neurology. Early engagement with regulators on AI validation frameworks will be key."</blockquote>
+    </div>
+    <div class="theme-card">
+      <span class="theme-card-tag" style="color:var(--accent-teal)">Clinical Voice · Physician burnout</span>
+      <h3>AI as an administrative relief valve</h3>
+      <p>Reducing physician burnout through better EMR tools was a recurring theme from the patient care segment — reflecting a near-term, practical application of AI that is distinct from the R&D segment's focus on discovery tools.</p>
+      <blockquote>"Reducing physician burnout by reducing time on EMR and/or improving EMR efficiency."</blockquote>
+    </div>
+  </div>
+
+  <p>Clinicians' primary AI interest is in EHR-integrated AI and medical scribes, or any AI tool that aims at reducing administrative friction in patient care settings. They are more likely than other segments to identify lack of proven use cases as an organizational barrier, reflecting a rigorous standard of evidence that mirrors clinical trial methodology. For this group, responsible AI governance must include clinicians and patient advocates as central voices — not just as stakeholders to be consulted, but as principal architects of how AI enters the care setting.</p>
+
+  <h3>Operational and commercial professionals: the largest cohort, the most varied terrain</h3>
+  <p>Commercial, manufacturing, corporate development, IT, finance, and legal respondents constitute the largest functional group (46%) and the most internally varied. Their relationship to AI is primarily mediated through productivity tools — LLMs, knowledge management, commercial analytics — rather than through domain-specific research or clinical platforms. As a result, they are simultaneously the most active AI users (primarily for documentation and analytics) and the least equipped to evaluate whether the tools they use are actually trustworthy.</p>
+
+  <div class="theme-grid">
+    <div class="theme-card">
+      <span class="theme-card-tag" style="color:var(--accent-warm)">Ops/Commercial Voice · Pace of change</span>
+      <h3>The change management cliff</h3>
+      <p>In smaller organizations, operational leads described the challenge of persuading non-technical colleagues to adopt AI tools — framing it as a short-term productivity cost that requires long-term vision to overcome.</p>
+      <blockquote>"The challenge in a small company is to motivate all coworkers to use AI. It will represent more work for them while learning, and less work / more productivity afterward. A lot don't see that far. We need to overcome this cliff."</blockquote>
+    </div>
+    <div class="theme-card">
+      <span class="theme-card-tag" style="color:var(--accent-warm)">Ops/Commercial Voice · Resource gap</span>
+      <h3>Small biotechs risk being left behind</h3>
+      <p>A regulatory professional raised a structural equity concern: that smaller organizations without dedicated AI resources will be systematically disadvantaged compared to large pharma companies with the infrastructure to extract value from proprietary datasets.</p>
+      <blockquote>"Smaller biotech companies don't have the resources to implement AI to realize productivity gains; they may ultimately lag behind large companies that are better resourced."</blockquote>
+    </div>
+  </div>
+
+  <p>This diverse segment is more concerned than others about internal decision-making quality and vendor accountability. Open text responses from commercial and operational respondents frequently mentioned the risk of senior leadership over-estimating AI capabilities — creating a disconnect between executive expectations and operator-level experience of AI limitations. Role-specific AI literacy training is the top resource need for this group, reflecting a desire to develop the evaluative judgment necessary to be an informed buyer and user of AI tools.</p>
+
+  <div class="highlight-box">
+    <p><strong>Cross-segment convergence.</strong> Despite their different orientations, all three functional segments converge on a common unmet need: practical, evidence-based case studies from peers who have successfully navigated AI implementation in comparable settings. This is the highest-priority resource for R&D professionals (72%), clinical practitioners (68%), and operational/commercial respondents (74%) alike. The medium for delivering this evidence — formal publications, professional communities, or peer networks — matters less than the credibility and practical specificity of the evidence itself.</p>
+  </div>
+
+  <!-- SECTION 8: WHAT THE FIELD NEEDS -->
+  <div class="section-rule">
+    <span class="section-rule-num">08</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <h2>Looking Ahead: Closing the Gaps</h2>
+
+  <p>AI in Bio is at a genuine inflection point: the biomedical community is more capable, more engaged, and also more clearly aware of the challenges of AI in Bio adoption than at any prior moment. Several structural gaps remain unresolved, and closing them will determine whether the next two years will be a continuation of the current productivity-and-analytics gains phase, or the beginning of AI's definitive integration into core discovery, clinical, and patient care workflows.</p>
+
+  <p>First, solving the evidence gap. Nearly one in three respondents cites lack of proven use cases as an organizational barrier, and the industry's overwhelming preference for case studies over abstract training or governance frameworks suggests that the most valuable contribution to the biomedical ecosystem is not better AI tools but better documentation of where AI has worked, where it has failed, and under what conditions each outcome occurred.</p>
+
+  <p>Second, addressing the skills gap. Forty-one percent of respondents identify lack of AI expertise as a primary organizational barrier. But the open-text responses make clear that this is not simply a training problem. Between senior leadership's overconfident expectations and middle management's skepticism or avoidance, individual practitioners can be left navigating AI adoption largely on their own, sometimes without organizational support. Role-specific, practical training with application-level guidance for specific functional roles is the skills intervention most consistently requested.</p>
+
+  <p>Third, trust must be earned incrementally. Across all segments, the path from experimentation to integration runs through validation and interpretability. Until practitioners can reliably assess when AI outputs are trustworthy and when they require human oversight, adoption will remain concentrated in low-stakes, high-productivity applications — documentation, literature search, and commercial analytics — rather than advancing into the higher-stakes domains where AI could have the greatest biomedical impact.</p>
+
+  <div class="pullquote">
+    <p>"Biomedical professionals are not waiting to be convinced that AI matters. They are waiting for it to be proven safe, validated, and worthy of the trust they are being asked to extend."</p>
+  </div>
+
+  <!-- TECHNICAL NOTES -->
+  <div class="section-rule">
+    <span class="section-rule-num">—</span>
+    <div class="section-rule-line"></div>
+  </div>
+
+  <div class="methodology">
+    <div class="methodology-label">Technical Notes</div>
+    <p>Questions 6 through 21 had a base of 102 respondents (13 skipped these sections); Question 13 had a base of 70 respondents who indicated their organizations actively use or pilot AI. Questions 15–20 had a base of 93 respondents. All percentages are calculated from the relevant base for each question.</p>
+    <p>Functional segment comparisons (Section 07) are drawn from the Q3 groupings: R&D/Scientific (n=35), Clinical/Medical (n=27), and Operational/Commercial (n=53). Because individual-level cross-tabulation data was not available in aggregate format, qualitative open-text analysis and directional framing are used for segment-level interpretation where quantitative cross-tabs could not be computed.</p>
+    <p style="margin-bottom:0">Year-on-year comparisons reference the 2024 AI/ML Upskilling Survey (n=83), conducted by BioLiterate with a functionally similar but not identical respondent panel. Metric comparisons are directional and should be interpreted with appropriate caution given differences in question framing and sample composition between survey years.</p>
+  </div>
+
+</div><!-- end page-container -->
+
+<!-- ════════════════════════════════ ABOUT BIOLITERATE ════════════════════════════════ -->
+<div style="background: #f0f4ff; border-top: 1px solid #dde0ea; margin-top: 0;">
+  <div class="page-container" style="padding-top: 64px; padding-bottom: 64px;">
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 64px; align-items: start;">
+      <div>
+        <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">About</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 16px;">Bio<em style="font-style:italic; color: var(--accent);">Literate</em></div>
+        <div style="font-size: 12px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 24px;">Founded 2025 · Independent</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="https://www.bio-literate.org/#subscribe" style="display: inline-block; background: var(--accent); color: white; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 12px 20px; border-radius: 4px; text-decoration: none; text-align: center;">Join the AIxBio Community →</a>
+          <a href="https://www.linkedin.com/company/bioliterate" style="display: inline-block; background: white; color: var(--accent); border: 1px solid var(--accent); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 12px 20px; border-radius: 4px; text-decoration: none; text-align: center;">Follow on LinkedIn →</a>
+        </div>
+      </div>
+      <div>
+        <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px;">BioLiterate is an independent research and education organization founded in 2025 with a focused mission: to equip biomedical professionals with the knowledge and tools to engage with AI critically, confidently, and responsibly.</p>
+        <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px;">We produce a quarterly newsletter, curated educational content, and live and online community events — developed in partnership with organizations across the life sciences, clinical, and research ecosystems. Our work is built on a simple conviction: that responsible AI adoption in biomedicine depends not on hype or fear, but on grounded, peer-relevant evidence. The State of AI in Bio survey is one expression of that conviction — an annual effort to bring the real voices of the field into focus.</p>
+        <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 0;">The findings in this report reflect what we hear consistently across our community: practitioners who are ready to engage with AI seriously, and who need resources that meet them where they are.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><strong>The State of AI in Bio · 2026</strong> — BioLiterate Annual Survey</div>
+  <div>© 2026 BioLiterate · All rights reserved</div>
+</footer>
+
+</body>
+</html>

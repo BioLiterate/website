@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI innovation vs. control: the illusion of a binary choice — BioLiterate</title>
+<meta name="description" content="The first article in BioLiterate's AI Ethics & Governance series: why the innovate-or-regulate framing is a false binary, and how four jurisdictions are converging on the same core governance functions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #01092D;
+    --ink-soft: #1e3060;
+    --ink-muted: #6b7899;
+    --rule: #dde3f0;
+    --page: #FFFFFF;
+    --accent: #032C7B;
+    --accent-warm: #c0392b;
+    --accent-teal: #0063CE;
+    --highlight: #F4FBEC;
+    --highlight-warm: #f0fae0;
+    /* jurisdiction accents — echo the embedded map's colour language */
+    --eu: #0b4fb3;
+    --uk: #c9202a;
+    --us: #073a7a;
+    --sg: #0b6b3a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: white;
+    padding: 56px 80px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 560px; height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(3,44,123,0.65) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -140px; left: 30%;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,99,206,0.30) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .series-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 8px 16px;
+    border-radius: 30px;
+    margin-bottom: 40px;
+  }
+  .series-tag .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--chart-5, #A9EA65);
+    background: #A9EA65;
+    box-shadow: 0 0 10px rgba(169,234,101,0.7);
+  }
+  .series-tag .part { color: rgba(255,255,255,0.85); }
+  .hero h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+    margin-bottom: 24px;
+  }
+  .hero .dek {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.68);
+    max-width: 600px;
+    margin-bottom: 0;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 44px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 26px;
+  }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 5px; }
+  .hero-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .hero-meta-value { font-size: 13px; color: rgba(255,255,255,0.88); font-weight: 500; }
+
+  /* ── ARTICLE BODY ── */
+  .container { max-width: 720px; margin: 0 auto; padding: 0 48px; }
+
+  article { padding-top: 64px; }
+
+  article p { margin-bottom: 22px; color: var(--ink-soft); }
+  article strong { color: var(--ink); font-weight: 600; }
+
+  .standfirst {
+    font-family: 'Manrope', sans-serif;
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 36px;
+  }
+
+  /* drop cap on the first body paragraph */
+  .lede::first-letter {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 0.82;
+    float: left;
+    margin: 8px 14px 0 0;
+    color: var(--accent);
+  }
+
+  /* ── APPROACHES CALLOUT ── */
+  .approaches {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 30px 34px;
+    margin: 40px 0;
+  }
+  .approaches-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .approaches ol { list-style: none; display: grid; gap: 14px; }
+  .approaches li {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .approaches li .jx {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    background: var(--accent);
+    border-radius: 5px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+    min-width: 78px;
+    text-align: center;
+  }
+  .approaches li.eu .jx { background: var(--eu); }
+  .approaches li.uk .jx { background: var(--uk); }
+  .approaches li.us .jx { background: var(--us); }
+  .approaches li.sg .jx { background: var(--sg); }
+  .approaches li strong { color: var(--ink); }
+
+  /* ── MAP FIGURE (breakout) ── */
+  /* ── COLLAPSIBLE MAP DISCLOSURE ── */
+  .map-disclosure { margin: 52px 0; }
+  .map-toggle { list-style: none; cursor: pointer; max-width: 720px; margin: 0 auto; padding: 0 48px; }
+  .map-toggle::-webkit-details-marker { display: none; }
+  .mt-inner {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--highlight);
+    border: 1px solid #e3eed6; border-left: 4px solid var(--accent-teal);
+    border-radius: 10px; padding: 16px 20px;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .map-toggle:hover .mt-inner { box-shadow: 0 14px 34px -22px rgba(1,9,45,0.5); transform: translateY(-1px); }
+  .mt-chev { color: var(--accent-teal); display: flex; flex: 0 0 auto; transition: transform 0.22s ease; }
+  details[open] .map-toggle .mt-chev { transform: rotate(90deg); }
+  .mt-text { flex: 1; min-width: 0; }
+  .mt-kicker {
+    display: block; font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-teal); margin-bottom: 3px;
+  }
+  .mt-title { display: block; font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.25; }
+  .mt-cta {
+    flex: 0 0 auto; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--accent-teal); border: 1px solid var(--accent-teal);
+    border-radius: 30px; padding: 7px 14px; white-space: nowrap;
+  }
+  .mt-cta::after { content: 'Explore'; }
+  details[open] .map-toggle .mt-cta::after { content: 'Collapse'; }
+  .map-disclosure .map-figure { margin: 24px auto 0; }
+
+  .map-figure {
+    max-width: min(1260px, 96vw);
+    margin: 64px auto;
+    padding: 0 24px;
+  }
+  .map-figure .fig-head {
+    max-width: 880px;
+    margin: 0 auto 22px;
+  }
+  .fig-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+    margin-bottom: 10px;
+  }
+  .fig-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .fig-sub { font-size: 14px; color: var(--ink-muted); line-height: 1.55; }
+  .map-frame {
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fbfaf6;
+    box-shadow: 0 24px 60px -32px rgba(1,9,45,0.45);
+  }
+  .map-frame iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    height: 1040px; /* fallback; auto-sized by script */
+  }
+  figcaption {
+    max-width: 880px;
+    margin: 16px auto 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--ink-muted);
+  }
+  figcaption b { color: var(--ink-soft); font-weight: 500; }
+
+  /* ── SECTION HEADERS ── */
+  .sec { padding-top: 18px; }
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 18px;
+  }
+  .sec-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    background: var(--accent);
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec.eu .sec-num { background: var(--eu); }
+  .sec.uk .sec-num { background: var(--uk); }
+  .sec.us .sec-num { background: var(--us); }
+  .sec.sg .sec-num { background: var(--sg); }
+  .sec h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(21px, 2.6vw, 27px);
+    font-weight: 700;
+    line-height: 1.22;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .sec h2 .jx-name {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+
+  /* ── CONVERGENCE PILLS ── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 26px 0 30px;
+  }
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    background: var(--highlight);
+    border: 1px solid #e3eed6;
+    border-radius: 30px;
+    padding: 7px 16px;
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 4px solid var(--accent-teal);
+    padding: 8px 0 8px 28px;
+    margin: 40px 0;
+  }
+  .pullquote p {
+    font-family: 'Manrope', sans-serif;
+    font-style: italic;
+    font-size: 23px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 52px 0; }
+
+  /* ── SERIES / NEXT ── */
+  .series-foot {
+    background: var(--highlight);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin: 56px 0 0;
+  }
+  .series-foot .sf-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .series-foot h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .series-foot p { font-size: 14px; color: var(--ink-soft); margin-bottom: 0; }
+
+  /* ── ABOUT ── */
+  .about { background: #F4FBEC; border-top: 1px solid #dde0ea; margin-top: 72px; }
+  .about-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 64px 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .about-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .about-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .about-sub { font-size: 12px; color: var(--ink-muted); margin-bottom: 24px; }
+  .about-cta { display: flex; flex-direction: column; gap: 10px; }
+  .about-cta a {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+  }
+  .about-cta a.primary { background: var(--accent); color: white; }
+  .about-cta a.secondary { background: white; color: var(--accent); border: 1px solid var(--accent); }
+  .about p { font-size: 15px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px; }
+  .about p:last-child { margin-bottom: 0; }
+
+  /* ── AUTHOR BOX ── */
+  .about-author { max-width: 880px; margin: 0 auto; padding: 52px 48px 0; }
+  .author-box {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    box-shadow: 0 18px 44px -30px rgba(1,9,45,0.55);
+  }
+  .author-photo {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 auto;
+    border: 3px solid white;
+    box-shadow: 0 6px 18px rgba(1,9,45,0.18);
+  }
+  .author-meta { min-width: 0; }
+  .author-meta .lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 7px;
+  }
+  .author-meta h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 19px; font-weight: 700; color: var(--ink);
+    line-height: 1.2; margin-bottom: 4px;
+  }
+  .author-meta .role { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 9px; }
+  .author-meta p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 11px; }
+  .author-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .author-links a {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.03em;
+    color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+  .author-links a:hover { border-bottom-color: var(--accent); }
+  @media (max-width: 820px) {
+    .about-author { padding: 40px 28px 0; }
+    .author-box { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.45);
+    padding: 36px 80px;
+    font-size: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer strong { color: rgba(255,255,255,0.7); font-weight: 600; }
+
+  /* ── ENTRANCE ── */
+  .hero-inner > * { animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-inner > *:nth-child(1) { animation-delay: 0.02s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.10s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.18s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.26s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .hero-inner > * { animation: none; } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 820px) {
+    .hero { padding: 40px 28px 48px; }
+    .container { padding: 0 28px; }
+    .about-inner { grid-template-columns: 1fr; gap: 32px; padding: 48px 28px; }
+    .map-figure { padding: 0 12px; }
+    .map-toggle { padding: 0 28px; }
+    footer { padding: 28px; }
+    .hero-meta { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="series-tag">
+      <span class="dot"></span>
+      AI Ethics &amp; Governance
+      <span class="part">· Article 01</span>
+    </div>
+    <h1>AI innovation vs. control: the illusion of a binary choice</h1>
+    <p class="dek">The opening essay in BioLiterate's series on AI ethics and governance — on why &ldquo;move fast&rdquo; and &ldquo;regulate&rdquo; was never the real choice, and what four jurisdictions reveal about where global AI governance is actually heading. An interactive map further down plots each jurisdiction by its regulatory philosophy and pressure, so you can explore the landscape as you read.</p>
+  </div>
+</header>
+
+<!-- ════════════════════ ARTICLE ════════════════════ -->
+<article>
+  <div class="container">
+    <p class="standfirst">The global conversation on artificial intelligence regulation is often framed as a choice: move fast and innovate, or regulate and constrain.</p>
+
+    <p class="lede">That framing reflects a concern across policy and public debate that premature regulation may inhibit technological developments or weaken global competitiveness, with policymakers also acknowledging that delayed intervention will not preserve optionality. It will simply allow risks to crystallise, often to a point where harms have already materialised and are significantly harder, or impossible, to reverse. In domains such as biomedicine, where technical corrections and retrospective regulatory intervention won&rsquo;t undo patient harm, this principle is well understood.</p>
+
+    <p>In practice, a small but influential group of jurisdictions is actively attempting to intervene early, under conditions of deep uncertainty, while many others are still observing and relying on existing legal frameworks and reactive enforcement rather than developing AI-specific regimes. What may be perceived as more &ldquo;pro-innovation&rdquo; or more &ldquo;restrictive&rdquo; in fact reflects a different theory of risk, accountability, and institutional capability across jurisdictions, with four broad approaches that are now taking shape for the governance of AI.</p>
+
+    <div class="approaches">
+      <div class="approaches-label">The four approaches taking shape</div>
+      <ol>
+        <li class="eu"><span class="jx">EU</span><span><strong>Pre-emptive system governance</strong> — a structured, risk-based regime applied before deployment.</span></li>
+        <li class="uk"><span class="jx">UK</span><span><strong>Principles-based &amp; sector-specific</strong> — high-level principles applied through existing regulators.</span></li>
+        <li class="us"><span class="jx">US</span><span><strong>State-led with a litigation backstop</strong> — sectoral oversight, state laws, and liability as a driver.</span></li>
+        <li class="sg"><span class="jx">SINGAPORE</span><span><strong>Operational governance playbooks</strong> — practical, implementable toolkits over binding law.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- (1) EU -->
+    <section class="sec eu">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <h2><span class="jx-name">European Union</span>The pre-emptive model of system governance</h2>
+      </div>
+      <p>The European Union has adopted the most structured and anticipatory model with the EU AI Act; it applies a risk-based framework that classifies AI systems and imposes obligations before they are deployed, particularly for high-risk applications such as those used in healthcare.</p>
+      <p>The logic is familiar, as it mirrors elements of existing product safety regulation, including conformity assessments and, in certain cases, third-party oversight, drawing clear parallels with CE-marking regimes. The ambition is to build trust through harmonisation and legal certainty across the European market.</p>
+      <p>Yet key elements of the framework depend on harmonised technical standards, many of which are still under development by European standardisation bodies such as CEN and CENELEC. Until these standards are finalised, operational clarity remains limited.</p>
+      <p>Having recognised the practical limits of a framework without implementing standards, the Commission has proposed postponing the application of parts of the high-risk regime until the supporting compliance framework is actually available. This is important for biomedical AI, since developers of clinical, diagnostic and device-linked AI might consider that they cannot operationalise conformity assessment, documentation and post-market obligations with confidence if the technical standards needed to translate legal requirements are still unfinished.</p>
+      <p>A pre-emptive model of governance can also prove difficult to apply to complex AI systems that evolve through adaptive learning. For example, developers in biomedicine may be required to rely on conformity assessment pathways for systems that have already been deployed and subsequently re-trained on new patient data, refined to reflect local clinical practices and updated to incorporate emerging biomarkers. At that stage, the system may no longer be meaningfully equivalent to the version originally assessed, raising a fundamental challenge as to whether the initial conformity assessment still captures the risks of what has effectively become a different system.</p>
+    </section>
+
+    <!-- (2) UK -->
+    <section class="sec uk">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <h2><span class="jx-name">United Kingdom</span>Principles-based and sector-specific</h2>
+      </div>
+      <p>The United Kingdom has taken a different path. Rather than introducing a single cross-sector AI statute, it has opted for a principles-based framework, implemented through existing regulators.</p>
+      <p>Authorities such as the Financial Conduct Authority, the Medicines and Healthcare products Regulatory Agency (MHRA), and the Information Commissioner&rsquo;s Office are expected to interpret and apply high-level principles within their respective domains. The stated objective is flexibility and responsiveness, avoiding the rigidity of a single legislative framework. By leveraging sector expertise, the UK also aims to align governance with real-world use cases, including in healthcare and life sciences.</p>
+      <p>This model, relying on fragmentation, obviously carries its own risks too. Different regulators may interpret similar concepts such as fairness, transparency, or accountability in different ways. For organisations operating across sectors, this can translate into uneven expectations and increased compliance complexity.</p>
+      <p>In biomedicine, where data protection, medical device regulation, and clinical governance intersect, this plurality can create uncertainty about which standards ultimately prevail.</p>
+    </section>
+
+    <!-- (3) US -->
+    <section class="sec us">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <h2><span class="jx-name">United States</span>A state-led approach with a litigation backstop</h2>
+      </div>
+      <p>In the United States, no single comprehensive federal AI law currently governs the field. Instead, the regulatory landscape is shaped by a combination of sector-specific oversight, emerging state legislation, and general legal principles.</p>
+      <p>For biomedical AI, the Food and Drug Administration plays a central role, particularly through its regulation of software as a medical device. The FDA has also begun to articulate approaches to adaptive AI systems, signalling an awareness of the challenges posed by continuously learning models.</p>
+      <p>Beyond sectoral oversight, states are increasingly active. Legislative initiatives, including those addressing automated decision-making and algorithmic accountability, are beginning to fill gaps at the federal level. For example, in California, the Transparency in Frontier Artificial Intelligence Act will be particularly important for developers of large-scale models used in drug discovery or biological research, imposing transparency and safety-reporting obligations on &ldquo;frontier&rdquo; AI systems. Colorado&rsquo;s Consumer Protections for Artificial Intelligence Act will apply to high-risk AI systems and targets algorithmic discrimination mitigation relevant for health-related decisions, including diagnostics and eligibility determinations (though its scope is currently under legislative reconsideration ahead of its June 2026 effective date). Utah, for its part, has adopted the Artificial Intelligence Policy Act, which focuses on disclosure obligations for generative AI interacting with consumers.</p>
+      <p>In this fragmented context, the December 2025 Executive Order on Artificial Intelligence and the White House&rsquo;s National AI Legislative Framework (March 2026) were less about regulating AI than about signalling a move toward federal pre-emption of the current state-led patchwork.</p>
+      <p>In practice, liability exposure through litigation — whether through consumer protection claims, product liability, or class actions — will act as a significant deterrent and governance driver. In effect, the framework will rely heavily on post-deployment accountability, allowing systems to be introduced ahead of settled standards, but with legal risk realised later, sometimes in unpredictable ways. For companies, this may shift the focus from formal compliance to defensibility.</p>
+    </section>
+
+    <!-- (4) Singapore -->
+    <section class="sec sg">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <h2><span class="jx-name">Singapore</span>A set of operational governance playbooks</h2>
+      </div>
+      <p>Singapore offers a more pragmatic and operationally focused model. Rather than prioritising binding legislation, it has developed detailed governance frameworks and practical toolkits.</p>
+      <p>The Model AI Governance Framework and associated initiatives include testing and assurance tools (AI Verify) which are designed to be directly implementable by organisations. The emphasis is on usability, clarity, and alignment with business processes.</p>
+      <p>This approach reflects a different philosophy and is really unique globally. Instead of codifying obligations in law or relying on formal certifications, Singapore seeks to shape behaviour through guidance that organisations can adopt, test, and adapt. In biomedical contexts, this can be particularly effective, as organisations are provided with concrete methods to assess risk, document decisions, and embed governance into system development to fit their exact needs and risks.</p>
+      <p>However, the model relies on voluntary adoption and does not carry the same legal force as statutory regimes. Its effectiveness therefore depends on organisational incentives and market expectations.</p>
+    </section>
+  </div><!-- /container: jurisdictions 01–04 -->
+
+  <!-- ── INTERACTIVE MAP (collapsible) ── -->
+  <details class="map-disclosure" id="mapDisclosure">
+    <summary class="map-toggle">
+      <span class="mt-inner">
+        <span class="mt-chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"/></svg>
+        </span>
+        <span class="mt-text">
+          <span class="mt-kicker">Figure 01 · Interactive</span>
+          <span class="mt-title">Map the four approaches: AI governance in a fragmented landscape</span>
+        </span>
+        <span class="mt-cta"></span>
+      </span>
+    </summary>
+    <figure class="map-figure">
+      <div class="map-frame">
+        <iframe id="govmap" title="Interactive map: AI governance in a fragmented regulatory landscape" loading="lazy" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+&lt;title&gt;AI Governance in a Fragmented Regulatory Landscape&lt;/title&gt;
+&lt;style&gt;
+:root{
+  --navy:#071949; --green:#0b6b3a; --orange:#d98200; --red:#d71920;
+  --purple:#6f2da8; --teal:#0b8f8a; --blue:#0b4fb3; --gold:#d99a00;
+  --light-green:#edf7f1; --light-orange:#fff6e8; --light-red:#fff0f0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fbfaf6;font-family:Georgia,&quot;Times New Roman&quot;,serif;color:var(--navy)}
+.page{width:min(1760px,98vw);margin:14px auto;padding:8px 14px 20px}
+.kicker{text-align:center;font-size:14px;letter-spacing:7px;font-weight:bold;margin-bottom:4px}
+h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
+.subtitle{text-align:center;font-size:22px;margin:8px 0 16px}
+
+.layout{
+  display:grid;
+  grid-template-columns:230px minmax(820px,1fr) 390px;
+  gap:18px;
+  align-items:start;
+}
+
+.top-headings{grid-column:2/3;display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:10px}
+.heading{min-height:96px;display:grid;grid-template-columns:58px 1fr;align-items:center;gap:12px;padding:10px 15px;border-right:1px dashed #aaa}
+.heading:last-child{border-right:none}
+.heading-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px solid currentColor}
+.heading h2{margin:0 0 7px;font-size:18px;text-transform:uppercase;line-height:1.14}
+.heading p{margin:0;color:#111;font-size:13px;line-height:1.28}
+.green{color:var(--green)}.orange{color:var(--orange)}.red{color:var(--red)}
+
+.left-axis{
+  grid-column:1/2;
+  grid-row:2/3;
+  height:640px;
+  position:relative;
+  display:grid;
+  grid-template-columns:42px 32px 1fr;
+  column-gap:12px;
+  align-items:stretch;
+}
+.axis-title{
+  grid-column:1/2;
+  align-self:center;
+  justify-self:center;
+  transform:rotate(-90deg);
+  font-size:16px;
+  font-weight:bold;
+  letter-spacing:1.8px;
+  white-space:nowrap;
+}
+.axis-arrow{
+  grid-column:2/3;
+  position:relative;
+  justify-self:center;
+  height:100%;
+  border-left:3px solid var(--navy);
+}
+.axis-arrow:before{
+  content:&quot;&quot;;
+  position:absolute;
+  top:-11px;
+  left:-8px;
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-bottom:14px solid var(--navy);
+}
+.row-stack{
+  grid-column:3/4;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.row-label{height:33.333%;display:flex;flex-direction:column;justify-content:center;padding-right:2px}
+.row-label .symbol{font-size:34px;line-height:1;margin-bottom:7px}
+.row-label h3{margin:0 0 7px;font-size:14.5px;text-transform:uppercase;line-height:1.12}
+.row-label p{margin:0;font-size:11.8px;line-height:1.24;color:#111}
+
+.chart-wrap{grid-column:2/3;grid-row:2/3}
+.chart{
+  height:640px;
+  position:relative;
+  border:1px solid #d7c7c7;
+  border-radius:9px;
+  overflow:hidden;
+  background:linear-gradient(90deg,var(--light-green) 0 33.333%,var(--light-orange) 33.333% 66.666%,var(--light-red) 66.666% 100%);
+}
+.chart:before,.chart:after{content:&quot;&quot;;position:absolute;top:0;bottom:0;border-left:1px dashed #d2b899;z-index:1}
+.chart:before{left:33.333%}.chart:after{left:66.666%}
+.hline{position:absolute;left:0;right:0;border-top:1px dashed #c9c9c9;z-index:1}.h1{top:33.333%}.h2{top:66.666%}
+
+.country{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  z-index:5;
+  text-align:center;
+  cursor:pointer;
+  width:104px;
+  min-height:78px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+}
+.country .badge{
+  width:42px;height:42px;margin:0 auto 5px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:white;font-size:22px;box-shadow:0 4px 10px rgba(0,0,0,.18);border:3px solid rgba(255,255,255,.78);transition:.15s ease;
+}
+.country .name{font-size:12.7px;font-weight:bold;line-height:1.12;color:var(--navy);background:rgba(251,250,246,.72);padding:1px 3px;border-radius:4px}
+.country small{font-size:10.4px;line-height:1.04}
+.country:hover .badge,.country:focus .badge{transform:scale(1.12);box-shadow:0 7px 18px rgba(0,0,0,.24)}
+.country:focus-visible{outline:3px solid var(--navy);border-radius:8px}
+.eu .badge{background:var(--blue)}.china .badge{background:var(--red)}.sk .badge{background:var(--purple)}
+.singapore .badge{background:var(--green)}.australia .badge{background:var(--teal)}.canada .badge{background:#4b7f25}
+.uk .badge{background:#c9202a}.japan .badge{background:#1e3f87}.saudi .badge{background:var(--gold)}
+.usstates .badge{background:#d92323}.usfed .badge{background:#073a7a}.india .badge{background:#f58220}.brazil .badge{background:#558b2f}
+
+.bottom-axis{
+  height:94px;
+  position:relative;
+  padding-top:14px;
+}
+.pressure-line{
+  position:absolute;
+  top:14px;
+  left:0;
+  right:0;
+  height:4px;
+  background:linear-gradient(90deg,var(--green),var(--orange),var(--red));
+}
+.pressure-line:after{
+  content:&quot;&quot;;
+  position:absolute;
+  right:-2px;
+  top:-7px;
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  border-left:16px solid var(--red);
+}
+.axis-center{
+  position:absolute;
+  left:0; right:0;
+  top:50px;
+  text-align:center;
+  font-size:17px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+.low,.high{position:absolute;top:26px;font-weight:bold;font-size:15px}.low{left:0;color:var(--green)}.high{right:0;color:var(--red);text-align:right}
+.low small,.high small{display:block;color:#111;font-size:12px;font-weight:normal;line-height:1.25;margin-top:4px}
+
+.sidebar{grid-column:3/4;grid-row:1/span 2;border:1px solid #d6d6d6;border-radius:9px;background:white;overflow:hidden;min-height:746px}
+.side-title{text-align:center;padding:12px 10px 10px;font-weight:bold;font-size:15px;border-bottom:1px solid #c6c6c6}
+.default-help{padding:14px 16px;border-bottom:1px solid #e8e8e8;font-size:13px;line-height:1.35;background:#f8fbff;color:#24324f}
+.detail{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:8px 11px;border-bottom:1px solid #e8e8e8;transition:.15s ease;opacity:.60}
+.detail.active,.detail:hover{opacity:1;background:#eef7ff;box-shadow:inset 4px 0 0 #2a88d8}
+.mini{width:31px;height:31px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:17px;margin-top:2px}
+.detail h4{margin:0 0 3px;font-size:13.2px;color:var(--navy)}
+.detail p{margin:0;color:#111;font-size:11.35px;line-height:1.22}
+
+.bottom-note{grid-column:1/4;display:grid;grid-template-columns:1fr 500px;gap:20px;margin-top:8px;align-items:start}
+.source{color:#586070;font-size:12.6px}.converge{border:1px solid #d6d6d6;border-radius:8px;padding:10px 12px;background:#f8fbff;color:var(--navy);font-size:12.8px;line-height:1.32}
+.converge strong{color:#0b2d66}
+
+@media(max-width:1180px){
+  .layout{grid-template-columns:210px 1fr}
+  .sidebar{grid-column:1/3;grid-row:auto;min-height:auto}
+  .bottom-note{grid-column:1/3;grid-template-columns:1fr}
+  h1{font-size:36px}
+  .chart{height:680px}
+  .left-axis{height:680px}
+}
+&lt;/style&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Poppins:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;style id=&quot;bl-interactive&quot;&gt;
+  body{ font-family:&#x27;Poppins&#x27;,system-ui,-apple-system,sans-serif !important; }
+  h1,h2,h3,h4,h5{ font-family:&#x27;Manrope&#x27;,&#x27;Poppins&#x27;,sans-serif !important; }
+  .kicker{ font-family:&#x27;DM Mono&#x27;,monospace !important; }
+  .subtitle{ font-family:&#x27;Poppins&#x27;,sans-serif !important; font-weight:400; }
+  .axis-title,.axis-center,.low,.high{ font-family:&#x27;Manrope&#x27;,&#x27;Poppins&#x27;,sans-serif !important; }
+  .country .name{ font-family:&#x27;Poppins&#x27;,sans-serif !important; }
+  .heading p,.row-label p,.source,.converge,.side-title,.detail h4,.detail p{ font-family:&#x27;Poppins&#x27;,sans-serif !important; }
+
+  /* Unified icon system: one box, identical height for top + side */
+  .heading{ display:flex !important; flex-direction:column !important; align-items:flex-start !important;
+            justify-content:flex-start !important; gap:8px !important; }
+  .heading-icon{ border:none !important; border-radius:0 !important; width:auto !important; height:auto !important;
+                 display:flex !important; align-items:flex-start !important; justify-content:flex-start !important; margin:0 !important; }
+  .row-label .symbol{ height:auto; margin-bottom:7px; line-height:0; }
+  .bl-ico{ width:30px !important; height:30px !important; display:block; }
+  /* Match top heading type scale to the side rows (14.5px title / 11.8px body) */
+  .heading h2{ font-size:14.5px !important; line-height:1.12 !important; }
+  .heading p{ font-size:11.8px !important; line-height:1.24 !important; }
+
+  /* Layout: drop the side table, give the chart full width, keep both axes */
+  .layout{ grid-template-columns:230px minmax(0,1fr) !important; }
+  .sidebar{ display:none !important; }
+  .top-headings{ grid-column:2/3 !important; }
+  .left-axis{ grid-column:1/2 !important; }
+  .chart-wrap{ grid-column:2/3 !important; }
+  .bottom-note{ grid-column:1/3 !important; }
+  .chart{ overflow:visible !important; }
+  .country{ cursor:pointer; }
+  .country:hover,.country:focus{ z-index:30; }
+  .country:hover .badge,.country:focus .badge{ transform:scale(1.16); }
+
+  /* Hover / tap tooltip */
+  #ai-tip{ position:absolute; z-index:60; left:0; top:0; width:286px; max-width:80vw;
+    background:#fff; border:1px solid #d7c7c7; border-radius:11px; box-shadow:0 16px 40px rgba(7,25,73,.26);
+    padding:14px 16px 15px; font-family:&#x27;Poppins&#x27;,sans-serif; color:var(--navy);
+    opacity:0; transform:translateY(5px) scale(.98); transform-origin:top center;
+    transition:opacity .15s ease, transform .15s ease; pointer-events:none; }
+  #ai-tip.show{ opacity:1; transform:none; }
+  #ai-tip .tip-head{ display:flex; align-items:center; gap:10px; margin-bottom:7px; }
+  #ai-tip .tip-badge{ width:30px;height:30px;border-radius:50%;flex:0 0 auto; display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:16px;border:2px solid rgba(255,255,255,.82); box-shadow:0 3px 8px rgba(0,0,0,.2); }
+  #ai-tip h5{ margin:0; font-family:&#x27;Manrope&#x27;,&#x27;Poppins&#x27;,sans-serif; font-size:16px; font-weight:700; line-height:1.15; color:var(--navy); }
+  #ai-tip p{ margin:6px 0 0; font-size:12.5px; line-height:1.42; color:#222; }
+  #ai-tip .tip-tier{ display:block; margin-top:10px; padding-top:9px; border-top:1px solid #ececec;
+    font-family:&#x27;DM Mono&#x27;,monospace; font-size:10px; letter-spacing:.04em; color:#586070; }
+  #ai-tip .tip-tier b{ color:var(--navy); font-weight:500; }
+
+  @media(max-width:760px){
+    .layout{ grid-template-columns:140px minmax(0,1fr) !important; }
+    .left-axis{ grid-template-columns:1fr !important; column-gap:0 !important; }
+    .axis-title,.axis-arrow{ display:none !important; }
+    .row-stack{ grid-column:1/-1 !important; }
+    .row-label{ padding-right:8px; }
+    .bl-ico{ width:24px !important; height:24px !important; }
+    .row-label h3{ font-size:12px; }
+    .row-label p{ font-size:10.3px; line-height:1.22; }
+    .heading{ min-height:auto !important; grid-template-columns:1fr !important; padding:6px 9px !important; }
+    .heading h2{ font-size:12px; }
+    .heading p{ display:none !important; }
+    .country{ width:76px; min-height:62px; }
+    .country .badge{ width:34px; height:34px; font-size:18px; }
+    .country .name{ font-size:11px; }
+    .country small{ font-size:9.4px; }
+    .bottom-note{ grid-template-columns:1fr !important; }
+    #ai-tip{ width:230px; }
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;
+  &lt;div class=&quot;kicker&quot;&gt;GLOBAL AI POLICY ANALYSIS • 2025–2026&lt;/div&gt;
+  &lt;h1&gt;AI Governance in a Fragmented Regulatory Landscape&lt;/h1&gt;
+  &lt;div class=&quot;subtitle&quot;&gt;Mapping jurisdictions by regulatory philosophy and governance maturity&lt;/div&gt;
+
+  &lt;div class=&quot;layout&quot;&gt;
+    &lt;div class=&quot;top-headings&quot;&gt;
+      &lt;div class=&quot;heading green&quot;&gt;&lt;div class=&quot;heading-icon&quot;&gt;&lt;svg class=&quot;bl-ico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M6 3 H13 L18 8 V21 H6 Z&quot;/&gt;&lt;path d=&quot;M13 3 V8 H18&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;12&quot; x2=&quot;15&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;15&quot; x2=&quot;15&quot; y2=&quot;15&quot;/&gt;&lt;line x1=&quot;9&quot; y1=&quot;18&quot; x2=&quot;13&quot; y2=&quot;18&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div&gt;&lt;h2&gt;Guidance &amp;amp; Principles&lt;/h2&gt;&lt;p&gt;Voluntary guidance, principles-based approaches and non-binding frameworks&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;heading orange&quot;&gt;&lt;div class=&quot;heading-icon&quot;&gt;&lt;svg class=&quot;bl-ico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;rect x=&quot;2.6&quot; y=&quot;5.3&quot; width=&quot;7.2&quot; height=&quot;3.8&quot; rx=&quot;1.2&quot; transform=&quot;rotate(-45 6.2 7.2)&quot;/&gt;&lt;line x1=&quot;6.2&quot; y1=&quot;7.2&quot; x2=&quot;15.8&quot; y2=&quot;16.8&quot;/&gt;&lt;rect x=&quot;11.4&quot; y=&quot;18.1&quot; width=&quot;9.2&quot; height=&quot;2.9&quot; rx=&quot;1.2&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div&gt;&lt;h2&gt;Governance &amp;amp; Assurance Frameworks&lt;/h2&gt;&lt;p&gt;Established governance frameworks, testing, standards, assurance mechanisms and implementation guidance&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;heading red&quot;&gt;&lt;div class=&quot;heading-icon&quot;&gt;&lt;svg class=&quot;bl-ico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M9.828 9.172a4 4 0 1 0 0 5.656a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div&gt;&lt;h2&gt;Binding Legal Requirements&lt;/h2&gt;&lt;p&gt;Enforceable laws and regulations with binding obligations and penalties&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;left-axis&quot;&gt;
+      &lt;div class=&quot;axis-title&quot;&gt;RISK-MANAGEMENT POSTURE&lt;/div&gt;
+      &lt;div class=&quot;axis-arrow&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;row-stack&quot;&gt;
+        &lt;div class=&quot;row-label green&quot;&gt;&lt;div class=&quot;symbol&quot;&gt;&lt;svg class=&quot;bl-ico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;8.5&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3.6&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1.1&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;h3&gt;Anticipatory / Preventive&lt;/h3&gt;&lt;p&gt;Focus on preventing harm and addressing risks early&lt;/p&gt;&lt;/div&gt;
+        &lt;div class=&quot;row-label&quot;&gt;&lt;div class=&quot;symbol&quot;&gt;&lt;svg class=&quot;bl-ico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;line x1=&quot;12&quot; y1=&quot;4.5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/&gt;&lt;line x1=&quot;5.5&quot; y1=&quot;7&quot; x2=&quot;18.5&quot; y2=&quot;7&quot;/&gt;&lt;line x1=&quot;8.5&quot; y1=&quot;19.5&quot; x2=&quot;15.5&quot; y2=&quot;19.5&quot;/&gt;&lt;path d=&quot;M5.5 7 3 12.2 H8 Z&quot;/&gt;&lt;path d=&quot;M18.5 7 16 12.2 H21 Z&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;h3&gt;Balanced / Adaptive&lt;/h3&gt;&lt;p&gt;Seeks proportionate risk management as capabilities evolve&lt;/p&gt;&lt;/div&gt;
+        &lt;div class=&quot;row-label&quot; style=&quot;color:#5a1d91&quot;&gt;&lt;div class=&quot;symbol&quot;&gt;&lt;svg class=&quot;bl-ico&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;polyline points=&quot;23 4 23 10 17 10&quot;/&gt;&lt;path d=&quot;M20.49 15a9 9 0 1 1 -2.12 -9.36 L23 10&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;h3&gt;Reactive / Emerging / Fragmented&lt;/h3&gt;&lt;p&gt;Responds to risks or is at an early stage of regulation&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;chart-wrap&quot;&gt;
+      &lt;div class=&quot;chart&quot;&gt;
+        &lt;div class=&quot;hline h1&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hline h2&quot;&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;country singapore&quot; tabindex=&quot;0&quot; data-id=&quot;singapore&quot; style=&quot;left:49%;top:16%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;♞&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Singapore&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country eu&quot; tabindex=&quot;0&quot; data-id=&quot;eu&quot; style=&quot;left:73%;top:12%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;✦&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;European Union&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country china&quot; tabindex=&quot;0&quot; data-id=&quot;china&quot; style=&quot;left:87%;top:12%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;▥&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;China&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country sk&quot; tabindex=&quot;0&quot; data-id=&quot;sk&quot; style=&quot;left:80%;top:27%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;✣&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;South Korea&lt;/div&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;country australia&quot; tabindex=&quot;0&quot; data-id=&quot;australia&quot; style=&quot;left:43%;top:41%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;⌁&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Australia&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country uk&quot; tabindex=&quot;0&quot; data-id=&quot;uk&quot; style=&quot;left:31.8%;top:50%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;✚&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;United Kingdom&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country canada&quot; tabindex=&quot;0&quot; data-id=&quot;canada&quot; style=&quot;left:46.5%;top:54%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;✦&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Canada&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country japan&quot; tabindex=&quot;0&quot; data-id=&quot;japan&quot; style=&quot;left:75%;top:50%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;▰&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Japan&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country saudi&quot; tabindex=&quot;0&quot; data-id=&quot;saudi&quot; style=&quot;left:56%;top:61%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;✣&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Saudi Arabia&lt;/div&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;country india&quot; tabindex=&quot;0&quot; data-id=&quot;india&quot; style=&quot;left:18%;top:80%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;▥&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;India&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country brazil&quot; tabindex=&quot;0&quot; data-id=&quot;brazil&quot; style=&quot;left:39%;top:80%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;✚&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;Brazil&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country usfed&quot; tabindex=&quot;0&quot; data-id=&quot;usfed&quot; style=&quot;left:55%;top:80%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;●&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;US Federal&lt;br&gt;&lt;small&gt;Agencies, EOs, Guidance&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;country usstates&quot; tabindex=&quot;0&quot; data-id=&quot;usstates&quot; style=&quot;left:80%;top:80%&quot;&gt;&lt;div class=&quot;badge&quot;&gt;▤&lt;/div&gt;&lt;div class=&quot;name&quot;&gt;US States&lt;br&gt;&lt;small&gt;CA, CO, UT...&lt;/small&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;bottom-axis&quot;&gt;
+        &lt;div class=&quot;pressure-line&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;low&quot;&gt;LOW REGULATORY PRESSURE&lt;small&gt;Lower legal pressure&lt;br&gt;Less prescriptive&lt;/small&gt;&lt;/div&gt;
+        &lt;div class=&quot;high&quot;&gt;HIGH REGULATORY PRESSURE&lt;small&gt;Higher legal pressure&lt;br&gt;More prescriptive&lt;/small&gt;&lt;/div&gt;
+        &lt;div class=&quot;axis-center&quot;&gt;REGULATORY PRESSURE&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;aside class=&quot;sidebar&quot; id=&quot;sidebar&quot;&gt;
+      &lt;div class=&quot;side-title&quot;&gt;JURISDICTIONS: STATUS &amp;amp; APPROACH&lt;/div&gt;
+      &lt;div class=&quot;default-help&quot;&gt;Hover over a jurisdiction on the map to highlight the relevant description here.&lt;/div&gt;
+
+      &lt;div class=&quot;detail&quot; data-id=&quot;eu&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:var(--blue)&quot;&gt;✦&lt;/div&gt;&lt;div&gt;&lt;h4&gt;European Union&lt;/h4&gt;&lt;p&gt;AI Act in force; comprehensive risk-based regime with binding duties, conformity controls and penalties.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;china&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:var(--red)&quot;&gt;▥&lt;/div&gt;&lt;div&gt;&lt;h4&gt;China&lt;/h4&gt;&lt;p&gt;State-led binding rules for recommendation algorithms, deep synthesis and generative AI services.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;sk&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:var(--purple)&quot;&gt;✣&lt;/div&gt;&lt;div&gt;&lt;h4&gt;South Korea&lt;/h4&gt;&lt;p&gt;AI Basic Act establishes national governance architecture with trust, safety and oversight obligations.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;singapore&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:var(--green)&quot;&gt;♞&lt;/div&gt;&lt;div&gt;&lt;h4&gt;Singapore&lt;/h4&gt;&lt;p&gt;Model AI Governance Framework, AI Verify, testing and assurance tools; mature but largely voluntary.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;australia&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:var(--teal)&quot;&gt;⌁&lt;/div&gt;&lt;div&gt;&lt;h4&gt;Australia&lt;/h4&gt;&lt;p&gt;Voluntary AI safety standard plus proposed mandatory guardrails for high-risk AI; moving upward toward preventive controls.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;canada&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#4b7f25&quot;&gt;✦&lt;/div&gt;&lt;div&gt;&lt;h4&gt;Canada&lt;/h4&gt;&lt;p&gt;AIDA / Bill C-27 failed; no federal AI Act currently. Risk-based policy direction remains, but less advanced than Australia.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;uk&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#c9202a&quot;&gt;✚&lt;/div&gt;&lt;div&gt;&lt;h4&gt;United Kingdom&lt;/h4&gt;&lt;p&gt;No comprehensive AI Act. Existing laws enforced by FCA, ICO, CMA and PRA. Strong governance ecosystem, including AI Safety Institute, guidance and model assurance.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;japan&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#1e3f87&quot;&gt;▰&lt;/div&gt;&lt;div&gt;&lt;h4&gt;Japan&lt;/h4&gt;&lt;p&gt;AI Act and guidelines create a lighter, promotion-led framework; more adaptive than EU-style ex ante control.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;saudi&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:var(--gold)&quot;&gt;✣&lt;/div&gt;&lt;div&gt;&lt;h4&gt;Saudi Arabia&lt;/h4&gt;&lt;p&gt;National AI Strategy and AI Ethics Principles; strategy-led governance rather than comprehensive binding law.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;usstates&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#d92323&quot;&gt;▤&lt;/div&gt;&lt;div&gt;&lt;h4&gt;US States&lt;/h4&gt;&lt;p&gt;Patchwork of state AI laws and bills, including transparency, high-risk AI and sector-specific duties.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;usfed&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#073a7a&quot;&gt;●&lt;/div&gt;&lt;div&gt;&lt;h4&gt;US Federal&lt;/h4&gt;&lt;p&gt;No comprehensive federal AI law; executive orders, agency guidance and enforcement through existing powers.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;india&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#f58220&quot;&gt;▥&lt;/div&gt;&lt;div&gt;&lt;h4&gt;India&lt;/h4&gt;&lt;p&gt;No comprehensive AI law; advisory principles and sectoral or platform-specific guidance remain emerging.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;detail&quot; data-id=&quot;brazil&quot;&gt;&lt;div class=&quot;mini&quot; style=&quot;background:#558b2f&quot;&gt;✚&lt;/div&gt;&lt;div&gt;&lt;h4&gt;Brazil&lt;/h4&gt;&lt;p&gt;AI Bill 2338/2023 remains in development; risk-based framework influenced by the EU approach.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/aside&gt;
+
+    &lt;div class=&quot;bottom-note&quot;&gt;
+      &lt;div class=&quot;source&quot;&gt;Source: “AI Governance in a Fragmented Regulatory Landscape” • IFK Article 1&lt;br&gt;&lt;em&gt;Note: Placement reflects governance maturity and implementation architecture rather than solely the legal binding nature of obligations.&lt;/em&gt;&lt;/div&gt;
+      &lt;div class=&quot;converge&quot;&gt;Despite divergent approaches, jurisdictions converge around core governance expectations: &lt;strong&gt;accountability, transparency, risk management, controllability and auditability.&lt;/strong&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const countries=document.querySelectorAll(&quot;.country&quot;);
+const details=document.querySelectorAll(&quot;.detail&quot;);
+function activate(id){
+  details.forEach(d=&gt;d.classList.toggle(&quot;active&quot;,d.dataset.id===id));
+  const active=document.querySelector(&#x27;.detail[data-id=&quot;&#x27;+id+&#x27;&quot;]&#x27;);
+  if(active) active.scrollIntoView({block:&quot;nearest&quot;,behavior:&quot;smooth&quot;});
+}
+countries.forEach(c=&gt;{
+  c.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(c.dataset.id));
+  c.addEventListener(&quot;focus&quot;,()=&gt;activate(c.dataset.id));
+  c.addEventListener(&quot;click&quot;,()=&gt;activate(c.dataset.id));
+});
+details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(d.dataset.id)));
+&lt;/script&gt;
+
+&lt;script&gt;
+(function(){
+  var chart = document.querySelector(&#x27;.chart&#x27;); if(!chart) return;
+  var DATA = {};
+  document.querySelectorAll(&#x27;.detail&#x27;).forEach(function(d){
+    var h=d.querySelector(&#x27;h4&#x27;), p=d.querySelector(&#x27;p&#x27;);
+    DATA[d.dataset.id]={name:h?h.textContent.trim():d.dataset.id, desc:p?p.textContent.trim():&#x27;&#x27;};
+  });
+  var COLS=[&#x27;Guidance &amp; principles&#x27;,&#x27;Governance &amp; assurance&#x27;,&#x27;Binding legal&#x27;];
+  var ROWS=[&#x27;Anticipatory / preventive&#x27;,&#x27;Balanced / adaptive&#x27;,&#x27;Reactive / emerging&#x27;];
+  function band(p){ return p&lt;33.334?0:(p&lt;66.667?1:2); }
+  var tip=document.createElement(&#x27;div&#x27;); tip.id=&#x27;ai-tip&#x27;; tip.setAttribute(&#x27;role&#x27;,&#x27;tooltip&#x27;);
+  tip.innerHTML=&#x27;&lt;div class=&quot;tip-head&quot;&gt;&lt;span class=&quot;tip-badge&quot;&gt;&lt;/span&gt;&lt;h5&gt;&lt;/h5&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;&lt;span class=&quot;tip-tier&quot;&gt;&lt;/span&gt;&#x27;;
+  chart.appendChild(tip);
+  var tBadge=tip.querySelector(&#x27;.tip-badge&#x27;),tName=tip.querySelector(&#x27;h5&#x27;),tDesc=tip.querySelector(&#x27;p&#x27;),tTier=tip.querySelector(&#x27;.tip-tier&#x27;),current=null;
+  function show(c){
+    var data=DATA[c.dataset.id]||{name:c.dataset.id,desc:&#x27;&#x27;}, badge=c.querySelector(&#x27;.badge&#x27;);
+    tName.textContent=data.name; tDesc.textContent=data.desc;
+    tBadge.textContent=badge?badge.textContent.trim():&#x27;&#x27;; if(badge) tBadge.style.background=getComputedStyle(badge).backgroundColor;
+    var L=parseFloat(c.style.left)||0, T=parseFloat(c.style.top)||0;
+    tTier.innerHTML=&#x27;Pressure: &lt;b&gt;&#x27;+COLS[band(L)]+&#x27;&lt;/b&gt; &amp;nbsp;·&amp;nbsp; Posture: &lt;b&gt;&#x27;+ROWS[band(T)]+&#x27;&lt;/b&gt;&#x27;;
+    tip.classList.add(&#x27;show&#x27;);
+    var cr=chart.getBoundingClientRect(), br=badge.getBoundingClientRect(), cw=chart.clientWidth, tw=tip.offsetWidth, th=tip.offsetHeight;
+    var cx=(br.left-cr.left)+br.width/2, left=cx-tw/2; if(left&lt;6)left=6; if(left+tw&gt;cw-6)left=cw-tw-6;
+    var above=(br.top-cr.top)-th-12, below=(br.bottom-cr.top)+12;
+    tip.style.left=left+&#x27;px&#x27;; tip.style.top=(above&gt;=4?above:below)+&#x27;px&#x27;; current=c;
+  }
+  function hide(){ tip.classList.remove(&#x27;show&#x27;); current=null; }
+  document.querySelectorAll(&#x27;.country&#x27;).forEach(function(c){
+    c.addEventListener(&#x27;mouseenter&#x27;,function(){show(c);}); c.addEventListener(&#x27;mouseleave&#x27;,hide);
+    c.addEventListener(&#x27;focus&#x27;,function(){show(c);}); c.addEventListener(&#x27;blur&#x27;,hide);
+    c.addEventListener(&#x27;click&#x27;,function(e){e.stopPropagation();show(c);});
+  });
+  document.addEventListener(&#x27;click&#x27;,function(){ if(current) hide(); });
+  window.addEventListener(&#x27;resize&#x27;,function(){ if(current) show(current); });
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+      </div>
+      <figcaption><b>How to read it:</b> jurisdictions are mapped by regulatory philosophy (vertical) and regulatory pressure (horizontal); placement reflects governance maturity and implementation architecture rather than solely the binding nature of obligations. Hover or tap any jurisdiction for its status and approach. Despite divergent approaches, all converge around five core expectations — accountability, transparency, risk management, controllability and auditability.</figcaption>
+    </figure>
+  </details>
+
+  <div class="container"><!-- /container: convergence onward -->
+
+    <!-- (5) Convergence -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <h2>The emerging convergence</h2>
+      </div>
+      <p>Despite these differences, a closer examination reveals a notable degree of convergence around the core functions that AI governance must perform.</p>
+      <div class="pills">
+        <span class="pill">Accountability</span>
+        <span class="pill">Transparency</span>
+        <span class="pill">Risk management</span>
+        <span class="pill">Controllability</span>
+        <span class="pill">Auditability &amp; traceability</span>
+      </div>
+      <p>Accountability appears consistently, whether through internal responsibility, regulatory obligations, or liability exposure. Transparency also recurs, in different forms: explainability in certain contexts, user-facing disclosures or labelling, and internal documentation. Risk management is similarly embedded — not always through formal classification, but also through testing, mitigation and ongoing monitoring. Systems are expected to remain controllable, through human oversight, operational safeguards, and governance processes.</p>
+      <p>Alongside all this sits a growing expectation that system behaviour can be evidenced, through records, documentation, or audit trails. Auditability and traceability, once technical concerns, are now recognised as core governance requirements.</p>
+      <p>At the same time, important divergences persist in how these requirements are structured and enforced. The timing of enforcement varies significantly, from pre-emptive obligations in the EU to more reactive mechanisms in the US. Approaches to liability remain uneven, shaping how risk is allocated between developers, deployers, and users. The balance between non-binding guidance and formal certification also differs across systems.</p>
+      <p>This combination of convergence and divergence creates a challenge for organisations operating globally — which is not simply about complying with multiple regimes, but how to reconcile them into a coherent internal approach.</p>
+    </section>
+
+    <!-- (6) Biomedical reality -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <h2>The biomedical reality</h2>
+      </div>
+      <div class="pullquote">
+        <p>&ldquo;We are not waiting for regulators, but we are also not confident enough to scale.&rdquo;</p>
+      </div>
+      <p>This sentiment captures the current reality for many biomedical organisations, which are operating under simultaneous pressure to accelerate adoption while ensuring that systems remain clinically reliable, explainable and governable.</p>
+      <p>The absence of fully operationalised regulatory frameworks does not eliminate the need for governance, and companies are therefore developing parallel compliance structures to anticipate future requirements while responding to present constraints. Internal standards are often designed to be acceptable across multiple jurisdictions, even where formal obligations differ.</p>
+      <p>In this environment, every design decision — whether related to data, oversight, validation, or deployment — aligns more naturally with certain governance models than others. As regulatory frameworks continue to evolve, these implicit choices will shape how easily systems can adapt to enable responsible innovation under conditions of incomplete information. This is where AI ethics can play a key role: to help translate fragmented external expectations into coherent, actionable oversight.</p>
+    </section>
+
+    <!-- SERIES FOOTER -->
+    <div class="series-foot">
+      <div class="sf-label">About this series</div>
+      <h3>AI Ethics &amp; Governance</h3>
+      <p>This is the first article in an ongoing BioLiterate series examining how AI ethics and governance are taking shape across the biomedical field — from the global regulatory landscape to the practical decisions organisations face as they move from experimentation to responsible scale. Future instalments will build on the framework introduced here.</p>
+    </div>
+
+  </div>
+</article>
+
+<!-- ════════════════════ ABOUT ════════════════════ -->
+<div class="about">
+  <div class="about-author">
+    <div class="author-box">
+      <img class="author-photo" src="data:image/jpeg;base64,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" alt="Portrait of Iphigénie Fossati-Kotz" width="88" height="88">
+      <div class="author-meta">
+        <div class="lbl">Author</div>
+        <h3>Iphigénie Fossati-Kotz</h3>
+        <div class="role">AI Ethics &amp; Regulation Expert · Non-Executive Director, BioLiterate</div>
+        <p>A senior legal executive with over 15 years as General Counsel, Iphigénie focuses on board-level governance, risk oversight, and the responsible oversight of AI, data, and emerging technologies — pairing cross-jurisdictional regulatory experience with formal training in AI ethics.</p>
+        <div class="author-links">
+          <a href="https://www.bio-literate.org/meet-iphigenie">Read full bio →</a>
+          <a href="https://www.linkedin.com/in/iphigenie-fossati-kotz/">LinkedIn →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="about-inner">
+    <div>
+      <div class="about-label">About</div>
+      <div class="about-name">BioLiterate</div>
+      <div class="about-sub">Founded 2025 · Independent</div>
+      <div class="about-cta">
+        <a class="primary" href="https://www.bio-literate.org/#subscribe">Join the AIxBio Community →</a>
+        <a class="secondary" href="https://www.linkedin.com/company/bioliterate">Follow on LinkedIn →</a>
+      </div>
+    </div>
+    <div>
+      <p>BioLiterate is an independent research and education nonprofit organization founded in 2025 with a focused mission: to equip biomedical professionals with the knowledge and tools to engage with AI critically, confidently, and responsibly.</p>
+      <p>We produce curated educational content, a quarterly newsletter, and live and online community events — developed in partnership with organizations across the biopharma, clinical, and research ecosystems. Our work is built on a simple conviction: that responsible AI adoption in biomedicine depends not on hype or fear, but on grounded, peer-relevant evidence.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div><strong>AI Ethics &amp; Governance · Article 01</strong> — BioLiterate Series</div>
+  <div>© 2026 BioLiterate · All rights reserved</div>
+</footer>
+
+<script>
+  (function () {
+    var f = document.getElementById('govmap');
+    if (!f) return;
+    function fit() {
+      try {
+        var d = f.contentWindow.document;
+        var h = Math.max(
+          d.body ? d.body.scrollHeight : 0,
+          d.documentElement ? d.documentElement.scrollHeight : 0
+        );
+        if (h > 0) f.style.height = h + 'px';
+      } catch (e) { /* same-origin srcdoc; ignore if not yet ready */ }
+    }
+    f.addEventListener('load', function () { fit(); setTimeout(fit, 250); setTimeout(fit, 800); });
+    var disc = document.getElementById('mapDisclosure');
+    if (disc) disc.addEventListener('toggle', function () {
+      if (disc.open) { fit(); setTimeout(fit, 250); setTimeout(fit, 700); }
+    });
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fit, 180); });
+    window.addEventListener('load', function () { setTimeout(fit, 400); });
+  })();
+</script>
+
+</body>
+</html>

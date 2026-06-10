@@ -27,17 +27,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-<script>
-  function postHeight() {
-    parent.postMessage(
-      { type: "reportHeight", height: document.documentElement.scrollHeight },
-      "*"
-    );
-  }
-  window.addEventListener("load", postHeight);
-  window.addEventListener("resize", postHeight);
-  new ResizeObserver(postHeight).observe(document.body);
-</script>
 
   body {
     font-family: 'Poppins', sans-serif;
@@ -124,7 +113,7 @@
 
   /* ── LAYOUT ── */
   .page-container {
-    max-width: 1400px;
+    max-width: 880px;
     margin: 0 auto;
     padding: 0 48px;
   }
@@ -931,6 +920,24 @@
   <div><strong>The State of AI in Bio · 2026</strong> — BioLiterate Annual Survey</div>
   <div>© 2026 BioLiterate · All rights reserved</div>
 </footer>
+  ...page content...
+  <script>
+  (function () {
+    if (window.self === window.top) return;
+    var last = 0;
+    function postHeight() {
+      var h = document.body.scrollHeight;
+      if (Math.abs(h - last) > 4) {
+        last = h;
+        parent.postMessage({ type: "reportHeight", height: h }, "*");
+      }
+    }
+    window.addEventListener("load", postHeight);
+    new ResizeObserver(postHeight).observe(document.body);
+  })();
+  </script>
+</body>
+</html>
 
 </body>
 </html>

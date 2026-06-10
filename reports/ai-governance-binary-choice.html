@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI innovation vs. control: the illusion of a binary choice — BioLiterate</title>
-<meta name="description" content="The first article in BioLiterate's AI Ethics & Governance series: why the innovate-or-regulate framing is a false binary, and how four jurisdictions are converging on the same core governance functions.">
+<title>AI governance in a fragmented regulatory landscape — BioLiterate</title>
+<meta name="description" content="The opening essay in BioLiterate's AI Ethics & Governance series: what the diverse approaches emerging across jurisdictions reveal about the trajectory of global AI governance — and why it is not, in practice, a binary choice between innovation and control.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -356,6 +356,28 @@
 
   .divider { border: none; border-top: 1px solid var(--rule); margin: 52px 0; }
 
+  /* ── IN PRACTICE CALLOUT ── */
+  .inpractice {
+    background: var(--highlight);
+    border: 1px solid #e3eed6;
+    border-left: 4px solid var(--accent-teal);
+    border-radius: 0 10px 10px 0;
+    padding: 28px 32px;
+    margin: 36px 0;
+  }
+  .inpractice .ip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent-teal); margin-bottom: 10px;
+  }
+  .inpractice .ip-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px; font-weight: 700; color: var(--ink);
+    line-height: 1.2; margin: 0 0 14px;
+  }
+  .inpractice p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 14px; }
+  .inpractice p:last-child { margin-bottom: 0; }
+
   /* ── SERIES / NEXT ── */
   .series-foot {
     background: var(--highlight);
@@ -513,15 +535,15 @@
       AI Ethics &amp; Governance
       <span class="part">· Article 01</span>
     </div>
-    <h1>AI innovation vs. control: the illusion of a binary choice</h1>
-    <p class="dek">The opening essay in BioLiterate's series on AI ethics and governance — on why &ldquo;move fast&rdquo; and &ldquo;regulate&rdquo; was never the real choice, and what four jurisdictions reveal about where global AI governance is actually heading. An interactive map further down plots each jurisdiction by its regulatory philosophy and pressure, so you can explore the landscape as you read.</p>
+    <h1>AI governance in a fragmented regulatory landscape</h1>
+    <p class="dek">This opening essay in BioLiterate's series on AI ethics and governance examines what the diverse approaches emerging across jurisdictions reveal about the trajectory of global AI governance, and why the debate is not, in practice, a binary choice between innovation and control. An interactive map further down plots key jurisdictions by their regulatory philosophy and pressure, so you can explore the landscape as you read.</p>
   </div>
 </header>
 
 <!-- ════════════════════ ARTICLE ════════════════════ -->
 <article>
   <div class="container">
-    <p class="standfirst">The global conversation on artificial intelligence regulation is often framed as a choice: move fast and innovate, or regulate and constrain.</p>
+    <p class="standfirst">The global conversation on artificial intelligence regulation is often presented as a choice: move fast and innovate, or regulate and constrain.</p>
 
     <p class="lede">That framing reflects a concern across policy and public debate that premature regulation may inhibit technological developments or weaken global competitiveness, with policymakers also acknowledging that delayed intervention will not preserve optionality. It will simply allow risks to crystallise, often to a point where harms have already materialised and are significantly harder, or impossible, to reverse. In domains such as biomedicine, where technical corrections and retrospective regulatory intervention won&rsquo;t undo patient harm, this principle is well understood.</p>
 
@@ -548,9 +570,9 @@
       </div>
       <p>The European Union has adopted the most structured and anticipatory model with the EU AI Act; it applies a risk-based framework that classifies AI systems and imposes obligations before they are deployed, particularly for high-risk applications such as those used in healthcare.</p>
       <p>The logic is familiar, as it mirrors elements of existing product safety regulation, including conformity assessments and, in certain cases, third-party oversight, drawing clear parallels with CE-marking regimes. The ambition is to build trust through harmonisation and legal certainty across the European market.</p>
-      <p>Yet key elements of the framework depend on harmonised technical standards, many of which are still under development by European standardisation bodies such as CEN and CENELEC. Until these standards are finalised, operational clarity remains limited.</p>
-      <p>Having recognised the practical limits of a framework without implementing standards, the Commission has proposed postponing the application of parts of the high-risk regime until the supporting compliance framework is actually available. This is important for biomedical AI, since developers of clinical, diagnostic and device-linked AI might consider that they cannot operationalise conformity assessment, documentation and post-market obligations with confidence if the technical standards needed to translate legal requirements are still unfinished.</p>
-      <p>A pre-emptive model of governance can also prove difficult to apply to complex AI systems that evolve through adaptive learning. For example, developers in biomedicine may be required to rely on conformity assessment pathways for systems that have already been deployed and subsequently re-trained on new patient data, refined to reflect local clinical practices and updated to incorporate emerging biomarkers. At that stage, the system may no longer be meaningfully equivalent to the version originally assessed, raising a fundamental challenge as to whether the initial conformity assessment still captures the risks of what has effectively become a different system.</p>
+      <p>Yet key elements of the framework, including the mechanism for demonstrating presumption of conformity, depend on harmonised technical standards, many of which are still under development by European standardisation bodies such as CEN and CENELEC. Until these standards are finalised, operational clarity remains limited.</p>
+      <p>Reflecting the practical challenge of a framework without implementing standards and compliance tools, the application of high-risk AI obligations under the EU AI Act is expected to be deferred from 2 August 2026 (the initial date) to 2 December 2027 for standalone systems, and to 2 August 2028 for AI systems embedded in products, until the supporting compliance framework is actually available. This is important for biomedical AI, since developers of clinical, diagnostic and device-linked AI might consider that they cannot operationalise conformity assessment, documentation and post-market obligations with confidence if the technical standards needed to translate legal requirements are still unfinished. Organisations will nevertheless likely continue preparing for compliance against the original timeline, treating the revised application dates — once confirmed through formal adoption of the relevant amending legislation — as additional implementation time.</p>
+      <p>A pre-deployment model of governance such as the EU AI Act can also prove difficult to apply to complex AI systems that evolve through adaptive learning. For example, developers in biomedicine may be required to rely on conformity assessment pathways for systems that have already been deployed and subsequently re-trained on new patient data, refined to reflect local clinical practices and updated to incorporate emerging biomarkers. At that stage, the system may no longer be meaningfully equivalent to the version originally assessed, raising a fundamental challenge as to whether the initial conformity assessment still captures the risks of what has effectively become a different system.</p>
     </section>
 
     <!-- (2) UK -->
@@ -573,8 +595,9 @@
       </div>
       <p>In the United States, no single comprehensive federal AI law currently governs the field. Instead, the regulatory landscape is shaped by a combination of sector-specific oversight, emerging state legislation, and general legal principles.</p>
       <p>For biomedical AI, the Food and Drug Administration plays a central role, particularly through its regulation of software as a medical device. The FDA has also begun to articulate approaches to adaptive AI systems, signalling an awareness of the challenges posed by continuously learning models.</p>
-      <p>Beyond sectoral oversight, states are increasingly active. Legislative initiatives, including those addressing automated decision-making and algorithmic accountability, are beginning to fill gaps at the federal level. For example, in California, the Transparency in Frontier Artificial Intelligence Act will be particularly important for developers of large-scale models used in drug discovery or biological research, imposing transparency and safety-reporting obligations on &ldquo;frontier&rdquo; AI systems. Colorado&rsquo;s Consumer Protections for Artificial Intelligence Act will apply to high-risk AI systems and targets algorithmic discrimination mitigation relevant for health-related decisions, including diagnostics and eligibility determinations (though its scope is currently under legislative reconsideration ahead of its June 2026 effective date). Utah, for its part, has adopted the Artificial Intelligence Policy Act, which focuses on disclosure obligations for generative AI interacting with consumers.</p>
-      <p>In this fragmented context, the December 2025 Executive Order on Artificial Intelligence and the White House&rsquo;s National AI Legislative Framework (March 2026) were less about regulating AI than about signalling a move toward federal pre-emption of the current state-led patchwork.</p>
+      <p>Beyond sectoral oversight, states are increasingly active. Legislative initiatives, including those addressing automated decision-making and algorithmic accountability, are beginning to fill gaps at the federal level. For example, in California, the Transparency in Frontier Artificial Intelligence Act is particularly important for developers of large-scale models used in drug discovery or biological research, imposing transparency and safety-reporting obligations on &ldquo;frontier&rdquo; AI systems. New York has followed a similar path through its recent RAISE Act, further reinforcing state-level efforts to govern frontier AI development.</p>
+      <p>Colorado&rsquo;s original Consumer Protections for Artificial Intelligence Act sought to mitigate algorithmic discrimination in high-risk AI systems, including those that may be used in consequential health-related decisions such as diagnostics and eligibility determinations. Although the legislation was subsequently revised and narrowed ahead of implementation, the new framework is expected to take effect on 1 January 2027 and continues to reflect concerns around fairness, bias, and accountability in automated decision-making. Utah, for its part, has adopted the Artificial Intelligence Policy Act, which focuses on disclosure obligations for generative AI interacting with consumers.</p>
+      <p>In this fragmented context, the December 2025 Executive Order on Artificial Intelligence and the White House&rsquo;s National AI Legislative Framework (March 2026) were less about regulating AI directly than about signalling a federal preference for a more nationally consistent approach. Subsequent policy proposals and draft legislation suggest that federal pre-emption of at least some state AI requirements is no longer merely theoretical — although the United States remains, in practice, a predominantly state-led regulatory environment.</p>
       <p>In practice, liability exposure through litigation — whether through consumer protection claims, product liability, or class actions — will act as a significant deterrent and governance driver. In effect, the framework will rely heavily on post-deployment accountability, allowing systems to be introduced ahead of settled standards, but with legal risk realised later, sometimes in unpredictable ways. For companies, this may shift the focus from formal compliance to defensibility.</p>
     </section>
 
@@ -585,7 +608,7 @@
         <h2><span class="jx-name">Singapore</span>A set of operational governance playbooks</h2>
       </div>
       <p>Singapore offers a more pragmatic and operationally focused model. Rather than prioritising binding legislation, it has developed detailed governance frameworks and practical toolkits.</p>
-      <p>The Model AI Governance Framework and associated initiatives include testing and assurance tools (AI Verify) which are designed to be directly implementable by organisations. The emphasis is on usability, clarity, and alignment with business processes.</p>
+      <p>The Model AI Governance Framework and associated initiatives include testing and assurance tools (AI Verify) designed to be directly implementable by organisations. The emphasis is on usability, clarity, and alignment with business processes.</p>
       <p>This approach reflects a different philosophy and is really unique globally. Instead of codifying obligations in law or relying on formal certifications, Singapore seeks to shape behaviour through guidance that organisations can adopt, test, and adapt. In biomedical contexts, this can be particularly effective, as organisations are provided with concrete methods to assess risk, document decisions, and embed governance into system development to fit their exact needs and risks.</p>
       <p>However, the model relies on voluntary adoption and does not carry the same legal force as statutory regimes. Its effectiveness therefore depends on organisational incentives and market expectations.</p>
     </section>
@@ -995,13 +1018,13 @@ details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(
 
   <div class="container"><!-- /container: convergence onward -->
 
-    <!-- (5) Convergence -->
+    <!-- (5) Emerging convergence and the biomedical context -->
     <section class="sec">
       <div class="sec-head">
         <span class="sec-num">05</span>
-        <h2>The emerging convergence</h2>
+        <h2>Emerging convergence and the biomedical context</h2>
       </div>
-      <p>Despite these differences, a closer examination reveals a notable degree of convergence around the core functions that AI governance must perform.</p>
+      <p>Despite these differences, a closer examination reveals a notable degree of convergence across jurisdictions around the core functions that AI governance must perform.</p>
       <div class="pills">
         <span class="pill">Accountability</span>
         <span class="pill">Transparency</span>
@@ -1011,22 +1034,21 @@ details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(
       </div>
       <p>Accountability appears consistently, whether through internal responsibility, regulatory obligations, or liability exposure. Transparency also recurs, in different forms: explainability in certain contexts, user-facing disclosures or labelling, and internal documentation. Risk management is similarly embedded — not always through formal classification, but also through testing, mitigation and ongoing monitoring. Systems are expected to remain controllable, through human oversight, operational safeguards, and governance processes.</p>
       <p>Alongside all this sits a growing expectation that system behaviour can be evidenced, through records, documentation, or audit trails. Auditability and traceability, once technical concerns, are now recognised as core governance requirements.</p>
-      <p>At the same time, important divergences persist in how these requirements are structured and enforced. The timing of enforcement varies significantly, from pre-emptive obligations in the EU to more reactive mechanisms in the US. Approaches to liability remain uneven, shaping how risk is allocated between developers, deployers, and users. The balance between non-binding guidance and formal certification also differs across systems.</p>
-      <p>This combination of convergence and divergence creates a challenge for organisations operating globally — which is not simply about complying with multiple regimes, but how to reconcile them into a coherent internal approach.</p>
-    </section>
+      <p>This coexistence of common governance expectations and differing regulatory approaches creates a challenge for organisations operating globally — which is not simply about complying with multiple regimes, but how to reconcile them into a coherent internal approach.</p>
+      <p>Many organisations now appear caught between the need to continue advancing AI systems without waiting for fully mature regulatory and standards frameworks, and a parallel hesitation to scale rapidly without clearer governance, validation and assurance mechanisms. This reflects the broader challenge facing many biomedical organisations as they seek to accelerate adoption while ensuring that systems remain clinically reliable, explainable and governable.</p>
 
-    <!-- (6) Biomedical reality -->
-    <section class="sec">
-      <div class="sec-head">
-        <span class="sec-num">06</span>
-        <h2>The biomedical reality</h2>
+      <div class="inpractice">
+        <div class="ip-label">In practice</div>
+        <h3 class="ip-title">The biomedical paradox</h3>
+        <p>For organisations in the biopharmaceutical and broader biomedical space, regulatory fragmentation is a critical challenge — because all patients, whether in Tokyo, Prague or Toronto, carry the same clinical need and the same right to the best available care. Science at its core cannot be localised, and the confidence thresholds of medical AI tools should not depend on the jurisdiction in which they are deployed. And yet the current reality is that the frameworks shaping how these tools are built, validated and brought to market are pulling in very different directions at once.</p>
+        <p>Organisations find themselves designing AI systems that are universal in their clinical ambition, but are being asked to operationalise them within governance landscapes that are either fragmented, still forming, or at times actively contradictory. Many companies are already grappling with the practical questions this raises: do you build to the most demanding standard available and absorb the cost? Do you wait for convergence — knowing it may never fully arrive? Or do you move forward, embedding governance principles solid enough to travel across borders, even before those borders agree on what to require?</p>
+        <p>In a sector where the cost of both moving too fast and waiting too long is ultimately borne by patients, these are not comfortable questions to leave open.</p>
       </div>
-      <div class="pullquote">
-        <p>&ldquo;We are not waiting for regulators, but we are also not confident enough to scale.&rdquo;</p>
-      </div>
-      <p>This sentiment captures the current reality for many biomedical organisations, which are operating under simultaneous pressure to accelerate adoption while ensuring that systems remain clinically reliable, explainable and governable.</p>
-      <p>The absence of fully operationalised regulatory frameworks does not eliminate the need for governance, and companies are therefore developing parallel compliance structures to anticipate future requirements while responding to present constraints. Internal standards are often designed to be acceptable across multiple jurisdictions, even where formal obligations differ.</p>
-      <p>In this environment, every design decision — whether related to data, oversight, validation, or deployment — aligns more naturally with certain governance models than others. As regulatory frameworks continue to evolve, these implicit choices will shape how easily systems can adapt to enable responsible innovation under conditions of incomplete information. This is where AI ethics can play a key role: to help translate fragmented external expectations into coherent, actionable oversight.</p>
+
+      <p>In this environment, organisations will increasingly rely on existing standards and governance frameworks — such as the National Institute of Standards and Technology (NIST) AI Risk Management Framework and the standards of the International Organization for Standardization (ISO) and the International Electrotechnical Commission (IEC) — to translate fragmented external expectations into operational processes, controls and oversight mechanisms. Alongside these, AI ethics will also serve as a practical tool to support risk assessment, prioritisation and decision-making.</p>
+      <p>On that basis, some companies are already developing parallel compliance structures to anticipate future requirements while responding to present constraints, with internal standards often designed to be acceptable across multiple jurisdictions even where formal obligations differ.</p>
+      <p>In that context, every design decision — whether related to data, oversight, validation or deployment — will align more naturally with certain governance models than others; and over time, as regulatory frameworks continue to evolve, these implicit choices will shape how easily these systems can adapt to enable responsible innovation under conditions of incomplete information.</p>
+      <p>Future publications will focus on how organisations can operationalise existing standards, AI ethics principles and governance practices into practical frameworks for oversight, decision-making and implementation.</p>
     </section>
 
     <!-- SERIES FOOTER -->
@@ -1047,7 +1069,7 @@ details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(
       <div class="author-meta">
         <div class="lbl">Author</div>
         <h3>Iphigénie Fossati-Kotz</h3>
-        <div class="role">AI Ethics &amp; Regulation Expert · Non-Executive Director, BioLiterate</div>
+        <div class="role">AI Ethics &amp; Regulation Expert · BioLiterate Board Member</div>
         <p>A senior legal executive with over 15 years as General Counsel, Iphigénie focuses on board-level governance, risk oversight, and the responsible oversight of AI, data, and emerging technologies — pairing cross-jurisdictional regulatory experience with formal training in AI ethics.</p>
         <div class="author-links">
           <a href="https://www.bio-literate.org/meet-iphigenie">Read full bio →</a>

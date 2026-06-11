@@ -25,26 +25,51 @@
     --uk: #c9202a;
     --us: #073a7a;
     --sg: #0b6b3a;
+    --pad-x: clamp(20px, 4vw, 48px);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
 
   body {
     font-family: 'Poppins', sans-serif;
     background: var(--page);
     color: var(--ink);
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: clamp(16px, 1.1vw + 12px, 18px);
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── HERO ── */
+  img { max-width: 100%; height: auto; }
+  iframe { max-width: 100%; }
+
+  /* ── LAYOUT TIERS ──
+     .wide  : hero / section headers / interactive map (max 1200px, matches cover)
+     .container : reading column (max 840px, centered) */
+  .wide { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--pad-x); }
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--pad-x); }
+  .container > p,
+  .container .standfirst,
+  .container .approaches,
+  .container .series-foot,
+  .sec > p,
+  .sec .pills,
+  .sec .inpractice {
+    max-width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── HERO (wide tier) ── */
   .hero {
     background: var(--ink);
     color: white;
-    padding: 56px 80px 56px;
+    padding: clamp(36px, 6vw, 56px) 0;
     position: relative;
     overflow: hidden;
   }
@@ -67,87 +92,69 @@
     pointer-events: none;
   }
   .hero-inner {
-    max-width: 880px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 var(--pad-x);
     position: relative;
     z-index: 1;
   }
   .series-tag {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 10px 12px;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: clamp(10px, 0.9vw, 11px);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.55);
     border: 1px solid rgba(255,255,255,0.18);
     padding: 8px 16px;
     border-radius: 30px;
-    margin-bottom: 40px;
+    margin-bottom: clamp(24px, 5vw, 40px);
   }
   .series-tag .dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: var(--chart-5, #A9EA65);
     background: #A9EA65;
     box-shadow: 0 0 10px rgba(169,234,101,0.7);
+    flex: 0 0 auto;
   }
   .series-tag .part { color: rgba(255,255,255,0.85); }
   .hero h1 {
     font-family: 'Manrope', sans-serif;
-    font-size: clamp(34px, 5vw, 56px);
+    font-size: clamp(28px, 3.4vw + 16px, 44px);
     font-weight: 800;
-    line-height: 1.08;
+    line-height: 1.12;
     letter-spacing: -0.01em;
-    max-width: 760px;
-    margin-bottom: 24px;
+    max-width: 820px;
+    margin-bottom: clamp(16px, 3vw, 24px);
   }
   .hero .dek {
-    font-size: 18px;
+    font-size: clamp(15px, 1vw + 11px, 18px);
     line-height: 1.6;
     color: rgba(255,255,255,0.68);
-    max-width: 600px;
+    max-width: 660px;
     margin-bottom: 0;
   }
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 44px;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    padding-top: 26px;
-  }
-  .hero-meta-item { display: flex; flex-direction: column; gap: 5px; }
-  .hero-meta-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-  .hero-meta-value { font-size: 13px; color: rgba(255,255,255,0.88); font-weight: 500; }
 
   /* ── ARTICLE BODY ── */
-  .container { max-width: 720px; margin: 0 auto; padding: 0 48px; }
-
-  article { padding-top: 64px; }
-
+  article { padding-top: clamp(40px, 7vw, 64px); }
   article p { margin-bottom: 22px; color: var(--ink-soft); }
   article strong { color: var(--ink); font-weight: 600; }
 
   .standfirst {
     font-family: 'Manrope', sans-serif;
-    font-size: 21px;
+    font-size: clamp(18px, 1.4vw + 13px, 21px);
     line-height: 1.55;
     color: var(--ink);
     font-weight: 500;
-    margin-bottom: 36px;
+    margin-bottom: clamp(26px, 4vw, 36px);
   }
 
-  /* drop cap on the first body paragraph */
   .lede::first-letter {
     font-family: 'Manrope', sans-serif;
     font-weight: 800;
-    font-size: 64px;
+    font-size: clamp(44px, 5vw + 26px, 64px);
     line-height: 0.82;
     float: left;
     margin: 8px 14px 0 0;
@@ -159,8 +166,8 @@
     background: var(--highlight);
     border-left: 4px solid var(--accent);
     border-radius: 0 6px 6px 0;
-    padding: 30px 34px;
-    margin: 40px 0;
+    padding: clamp(22px, 3.5vw, 30px) clamp(20px, 4vw, 34px);
+    margin: clamp(30px, 5vw, 40px) auto;
   }
   .approaches-label {
     font-family: 'DM Mono', monospace;
@@ -173,9 +180,10 @@
   .approaches ol { list-style: none; display: grid; gap: 14px; }
   .approaches li {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
-    gap: 14px;
-    font-size: 15px;
+    gap: 10px 14px;
+    font-size: clamp(14px, 0.9vw + 11px, 15px);
     color: var(--ink-soft);
     line-height: 1.5;
   }
@@ -191,68 +199,77 @@
     min-width: 78px;
     text-align: center;
   }
+  .approaches li span:last-child { flex: 1 1 240px; }
   .approaches li.eu .jx { background: var(--eu); }
   .approaches li.uk .jx { background: var(--uk); }
   .approaches li.us .jx { background: var(--us); }
   .approaches li.sg .jx { background: var(--sg); }
   .approaches li strong { color: var(--ink); }
 
-  /* ── MAP FIGURE (breakout) ── */
   /* ── COLLAPSIBLE MAP DISCLOSURE ── */
-  .map-disclosure { margin: 52px 0; }
-  .map-toggle { list-style: none; cursor: pointer; max-width: 720px; margin: 0 auto; padding: 0 48px; }
+  .map-disclosure { margin: clamp(36px, 6vw, 52px) 0; }
+  .map-toggle {
+    list-style: none;
+    cursor: pointer;
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 var(--pad-x);
+  }
   .map-toggle::-webkit-details-marker { display: none; }
   .mt-inner {
-    display: flex; align-items: center; gap: 16px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
     background: var(--highlight);
-    border: 1px solid #e3eed6; border-left: 4px solid var(--accent-teal);
-    border-radius: 10px; padding: 16px 20px;
+    border: 1px solid #e3eed6;
+    border-left: 4px solid var(--accent-teal);
+    border-radius: 10px;
+    padding: clamp(14px, 2.5vw, 16px) clamp(16px, 3vw, 20px);
     transition: box-shadow 0.18s ease, transform 0.18s ease;
   }
   .map-toggle:hover .mt-inner { box-shadow: 0 14px 34px -22px rgba(1,9,45,0.5); transform: translateY(-1px); }
   .mt-chev { color: var(--accent-teal); display: flex; flex: 0 0 auto; transition: transform 0.22s ease; }
   details[open] .map-toggle .mt-chev { transform: rotate(90deg); }
-  .mt-text { flex: 1; min-width: 0; }
+  .mt-text { flex: 1 1 220px; min-width: 0; }
   .mt-kicker {
-    display: block; font-family: 'DM Mono', monospace; font-size: 10px;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-teal); margin-bottom: 3px;
-  }
-  .mt-title { display: block; font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.25; }
-  .mt-cta {
-    flex: 0 0 auto; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--accent-teal); border: 1px solid var(--accent-teal);
-    border-radius: 30px; padding: 7px 14px; white-space: nowrap;
-  }
-  .mt-cta::after { content: 'Explore'; }
-  details[open] .map-toggle .mt-cta::after { content: 'Collapse'; }
-  .map-disclosure .map-figure { margin: 24px auto 0; }
-
-  .map-figure {
-    max-width: min(1260px, 96vw);
-    margin: 64px auto;
-    padding: 0 24px;
-  }
-  .map-figure .fig-head {
-    max-width: 880px;
-    margin: 0 auto 22px;
-  }
-  .fig-kicker {
+    display: block;
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent-teal);
-    margin-bottom: 10px;
+    margin-bottom: 3px;
   }
-  .fig-title {
+  .mt-title {
+    display: block;
     font-family: 'Manrope', sans-serif;
-    font-size: 22px;
+    font-size: clamp(14px, 1vw + 10px, 16px);
     font-weight: 700;
     color: var(--ink);
     line-height: 1.25;
-    margin-bottom: 6px;
   }
-  .fig-sub { font-size: 14px; color: var(--ink-muted); line-height: 1.55; }
+  .mt-cta {
+    flex: 0 0 auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+    border: 1px solid var(--accent-teal);
+    border-radius: 30px;
+    padding: 7px 14px;
+    white-space: nowrap;
+  }
+  .mt-cta::after { content: 'Explore'; }
+  details[open] .map-toggle .mt-cta::after { content: 'Collapse'; }
+
+  /* ── MAP FIGURE (wide tier, matches 1200px cover) ── */
+  .map-figure {
+    max-width: 1200px;
+    margin: 24px auto 0;
+    padding: 0 clamp(12px, 3vw, 24px);
+  }
   .map-frame {
     border: 1px solid var(--rule);
     border-radius: 12px;
@@ -264,25 +281,26 @@
     display: block;
     width: 100%;
     border: 0;
-    height: 1040px; /* fallback; auto-sized by script */
+    height: auto;
+    aspect-ratio: 3 / 4; /* fluid fallback; replaced by measured height via script */
   }
   figcaption {
-    max-width: 880px;
+    max-width: 840px;
     margin: 16px auto 0;
     font-family: 'DM Mono', monospace;
-    font-size: 11.5px;
+    font-size: clamp(11px, 0.8vw + 8px, 11.5px);
     line-height: 1.55;
     color: var(--ink-muted);
   }
   figcaption b { color: var(--ink-soft); font-weight: 500; }
 
-  /* ── SECTION HEADERS ── */
+  /* ── SECTION HEADERS (wide tier) ── */
   .sec { padding-top: 18px; }
   .sec-head {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin: 48px 0 18px;
+    gap: clamp(12px, 2vw, 16px);
+    margin: clamp(36px, 6vw, 48px) 0 18px;
   }
   .sec-num {
     font-family: 'DM Mono', monospace;
@@ -303,7 +321,7 @@
   .sec.sg .sec-num { background: var(--sg); }
   .sec h2 {
     font-family: 'Manrope', sans-serif;
-    font-size: clamp(21px, 2.6vw, 27px);
+    font-size: clamp(20px, 1.8vw + 13px, 27px);
     font-weight: 700;
     line-height: 1.22;
     color: var(--ink);
@@ -325,7 +343,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 26px 0 30px;
+    margin: 26px auto 30px;
   }
   .pill {
     font-family: 'DM Mono', monospace;
@@ -338,32 +356,14 @@
     padding: 7px 16px;
   }
 
-  /* ── PULLQUOTE ── */
-  .pullquote {
-    border-left: 4px solid var(--accent-teal);
-    padding: 8px 0 8px 28px;
-    margin: 40px 0;
-  }
-  .pullquote p {
-    font-family: 'Manrope', sans-serif;
-    font-style: italic;
-    font-size: 23px;
-    line-height: 1.5;
-    color: var(--ink);
-    font-weight: 500;
-    margin-bottom: 0;
-  }
-
-  .divider { border: none; border-top: 1px solid var(--rule); margin: 52px 0; }
-
   /* ── IN PRACTICE CALLOUT ── */
   .inpractice {
     background: var(--highlight);
     border: 1px solid #e3eed6;
     border-left: 4px solid var(--accent-teal);
     border-radius: 0 10px 10px 0;
-    padding: 28px 32px;
-    margin: 36px 0;
+    padding: clamp(22px, 3.5vw, 28px) clamp(20px, 4vw, 32px);
+    margin: clamp(28px, 5vw, 36px) auto;
   }
   .inpractice .ip-label {
     font-family: 'DM Mono', monospace;
@@ -372,18 +372,19 @@
   }
   .inpractice .ip-title {
     font-family: 'Manrope', sans-serif;
-    font-size: 20px; font-weight: 700; color: var(--ink);
+    font-size: clamp(18px, 1.2vw + 13px, 20px);
+    font-weight: 700; color: var(--ink);
     line-height: 1.2; margin: 0 0 14px;
   }
-  .inpractice p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 14px; }
+  .inpractice p { font-size: clamp(14px, 0.9vw + 11px, 15px); color: var(--ink-soft); line-height: 1.7; margin-bottom: 14px; }
   .inpractice p:last-child { margin-bottom: 0; }
 
-  /* ── SERIES / NEXT ── */
+  /* ── SERIES FOOTER ── */
   .series-foot {
     background: var(--highlight);
     border-radius: 12px;
-    padding: 36px 40px;
-    margin: 56px 0 0;
+    padding: clamp(26px, 4.5vw, 36px) clamp(22px, 4.5vw, 40px);
+    margin: clamp(40px, 7vw, 56px) auto 0;
   }
   .series-foot .sf-label {
     font-family: 'DM Mono', monospace;
@@ -395,66 +396,25 @@
   }
   .series-foot h3 {
     font-family: 'Manrope', sans-serif;
-    font-size: 20px;
+    font-size: clamp(18px, 1.2vw + 13px, 20px);
     font-weight: 700;
     color: var(--ink);
     margin-bottom: 10px;
   }
-  .series-foot p { font-size: 14px; color: var(--ink-soft); margin-bottom: 0; }
+  .series-foot p { font-size: clamp(13.5px, 0.9vw + 10px, 14px); color: var(--ink-soft); margin-bottom: 0; }
 
-  /* ── ABOUT ── */
-  .about { background: #F4FBEC; border-top: 1px solid #dde0ea; margin-top: 72px; }
-  .about-inner {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 64px 48px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 56px;
-    align-items: start;
-  }
-  .about-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
-  .about-name {
-    font-family: 'Manrope', sans-serif;
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 12px;
-  }
-  .about-sub { font-size: 12px; color: var(--ink-muted); margin-bottom: 24px; }
-  .about-cta { display: flex; flex-direction: column; gap: 10px; }
-  .about-cta a {
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 12px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    text-align: center;
-  }
-  .about-cta a.primary { background: var(--accent); color: white; }
-  .about-cta a.secondary { background: white; color: var(--accent); border: 1px solid var(--accent); }
-  .about p { font-size: 15px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px; }
-  .about p:last-child { margin-bottom: 0; }
-
-  /* ── AUTHOR BOX ── */
-  .about-author { max-width: 880px; margin: 0 auto; padding: 52px 48px 0; }
+  /* ── ABOUT (wide tier) ── */
+  .about { background: #F4FBEC; border-top: 1px solid #dde0ea; margin-top: clamp(48px, 8vw, 72px); }
+  .about-author { max-width: 1200px; margin: 0 auto; padding: clamp(36px, 6vw, 52px) var(--pad-x) 0; }
   .author-box {
     background: white;
     border: 1px solid var(--rule);
     border-radius: 14px;
-    padding: 22px 26px;
+    padding: clamp(18px, 3vw, 22px) clamp(18px, 3.5vw, 26px);
     display: flex;
-    align-items: center;
-    gap: 22px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
     box-shadow: 0 18px 44px -30px rgba(1,9,45,0.55);
   }
   .author-photo {
@@ -473,11 +433,11 @@
   }
   .author-meta h3 {
     font-family: 'Manrope', sans-serif;
-    font-size: 19px; font-weight: 700; color: var(--ink);
+    font-size: clamp(17px, 1.2vw + 12px, 19px); font-weight: 700; color: var(--ink);
     line-height: 1.2; margin-bottom: 4px;
   }
   .author-meta .role { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 9px; }
-  .author-meta p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 11px; }
+  .author-meta p { font-size: clamp(13px, 0.9vw + 10px, 13.5px); color: var(--ink-soft); line-height: 1.55; margin-bottom: 11px; }
   .author-links { display: flex; gap: 20px; flex-wrap: wrap; }
   .author-links a {
     font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.03em;
@@ -485,16 +445,53 @@
     transition: border-color 0.15s ease;
   }
   .author-links a:hover { border-bottom-color: var(--accent); }
-  @media (max-width: 820px) {
-    .about-author { padding: 40px 28px 0; }
-    .author-box { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(36px, 6vw, 64px) var(--pad-x);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: start;
   }
+  .about-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .about-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(22px, 1.6vw + 15px, 26px);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .about-sub { font-size: 12px; color: var(--ink-muted); margin-bottom: 24px; }
+  .about-cta { display: flex; flex-direction: column; gap: 10px; max-width: 320px; }
+  .about-cta a {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+  }
+  .about-cta a.primary { background: var(--accent); color: white; }
+  .about-cta a.secondary { background: white; color: var(--accent); border: 1px solid var(--accent); }
+  .about p { font-size: clamp(14px, 1vw + 11px, 15px); color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px; }
+  .about p:last-child { margin-bottom: 0; }
 
   /* ── FOOTER ── */
   footer {
     background: var(--ink);
     color: rgba(255,255,255,0.45);
-    padding: 36px 80px;
+    padding: clamp(24px, 5vw, 36px) var(--pad-x);
     font-size: 12px;
     display: flex;
     flex-wrap: wrap;
@@ -509,19 +506,14 @@
   .hero-inner > *:nth-child(1) { animation-delay: 0.02s; }
   .hero-inner > *:nth-child(2) { animation-delay: 0.10s; }
   .hero-inner > *:nth-child(3) { animation-delay: 0.18s; }
-  .hero-inner > *:nth-child(4) { animation-delay: 0.26s; }
   @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) { .hero-inner > * { animation: none; } }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 820px) {
-    .hero { padding: 40px 28px 48px; }
-    .container { padding: 0 28px; }
-    .about-inner { grid-template-columns: 1fr; gap: 32px; padding: 48px 28px; }
-    .map-figure { padding: 0 12px; }
-    .map-toggle { padding: 0 28px; }
-    footer { padding: 28px; }
-    .hero-meta { gap: 28px; }
+  /* ── ≥700px ENHANCEMENTS (mobile-first) ── */
+  @media (min-width: 700px) {
+    .author-box { flex-direction: row; align-items: center; gap: 22px; }
+    .about-inner { grid-template-columns: 1fr 2fr; }
+    .map-frame iframe { aspect-ratio: 5 / 4; }
   }
 </style>
 </head>
@@ -542,7 +534,7 @@
 
 <!-- ════════════════════ ARTICLE ════════════════════ -->
 <article>
-  <div class="container">
+  <div class="narrow">
     <p class="standfirst">The global conversation on artificial intelligence regulation is often presented as a choice: move fast and innovate, or regulate and constrain.</p>
 
     <p class="lede">That framing reflects a concern across policy and public debate that premature regulation may inhibit technological developments or weaken global competitiveness, with policymakers also acknowledging that delayed intervention will not preserve optionality. It will simply allow risks to crystallise, often to a point where harms have already materialised and are significantly harder, or impossible, to reverse. In domains such as biomedicine, where technical corrections and retrospective regulatory intervention won&rsquo;t undo patient harm, this principle is well understood.</p>
@@ -560,59 +552,72 @@
     </div>
   </div>
 
-  <div class="container">
-
     <!-- (1) EU -->
     <section class="sec eu">
-      <div class="sec-head">
+      <div class="wide">
+        <div class="sec-head">
         <span class="sec-num">01</span>
         <h2><span class="jx-name">European Union</span>The pre-emptive model of system governance</h2>
       </div>
+      </div>
+      <div class="narrow">
       <p>The European Union has adopted the most structured and anticipatory model with the EU AI Act; it applies a risk-based framework that classifies AI systems and imposes obligations before they are deployed, particularly for high-risk applications such as those used in healthcare.</p>
       <p>The logic is familiar, as it mirrors elements of existing product safety regulation, including conformity assessments and, in certain cases, third-party oversight, drawing clear parallels with CE-marking regimes. The ambition is to build trust through harmonisation and legal certainty across the European market.</p>
       <p>Yet key elements of the framework, including the mechanism for demonstrating presumption of conformity, depend on harmonised technical standards, many of which are still under development by European standardisation bodies such as CEN and CENELEC. Until these standards are finalised, operational clarity remains limited.</p>
       <p>Reflecting the practical challenge of a framework without implementing standards and compliance tools, the application of high-risk AI obligations under the EU AI Act is expected to be deferred from 2 August 2026 (the initial date) to 2 December 2027 for standalone systems, and to 2 August 2028 for AI systems embedded in products, until the supporting compliance framework is actually available. This is important for biomedical AI, since developers of clinical, diagnostic and device-linked AI might consider that they cannot operationalise conformity assessment, documentation and post-market obligations with confidence if the technical standards needed to translate legal requirements are still unfinished. Organisations will nevertheless likely continue preparing for compliance against the original timeline, treating the revised application dates — once confirmed through formal adoption of the relevant amending legislation — as additional implementation time.</p>
       <p>A pre-deployment model of governance such as the EU AI Act can also prove difficult to apply to complex AI systems that evolve through adaptive learning. For example, developers in biomedicine may be required to rely on conformity assessment pathways for systems that have already been deployed and subsequently re-trained on new patient data, refined to reflect local clinical practices and updated to incorporate emerging biomarkers. At that stage, the system may no longer be meaningfully equivalent to the version originally assessed, raising a fundamental challenge as to whether the initial conformity assessment still captures the risks of what has effectively become a different system.</p>
+    </div>
     </section>
 
     <!-- (2) UK -->
     <section class="sec uk">
-      <div class="sec-head">
+      <div class="wide">
+        <div class="sec-head">
         <span class="sec-num">02</span>
         <h2><span class="jx-name">United Kingdom</span>Principles-based and sector-specific</h2>
       </div>
+      </div>
+      <div class="narrow">
       <p>The United Kingdom has taken a different path. Rather than introducing a single cross-sector AI statute, it has opted for a principles-based framework, implemented through existing regulators.</p>
       <p>Authorities such as the Financial Conduct Authority, the Medicines and Healthcare products Regulatory Agency (MHRA), and the Information Commissioner&rsquo;s Office are expected to interpret and apply high-level principles within their respective domains. The stated objective is flexibility and responsiveness, avoiding the rigidity of a single legislative framework. By leveraging sector expertise, the UK also aims to align governance with real-world use cases, including in healthcare and life sciences.</p>
       <p>This model, relying on fragmentation, obviously carries its own risks too. Different regulators may interpret similar concepts such as fairness, transparency, or accountability in different ways. For organisations operating across sectors, this can translate into uneven expectations and increased compliance complexity.</p>
       <p>In biomedicine, where data protection, medical device regulation, and clinical governance intersect, this plurality can create uncertainty about which standards ultimately prevail.</p>
+    </div>
     </section>
 
     <!-- (3) US -->
     <section class="sec us">
-      <div class="sec-head">
+      <div class="wide">
+        <div class="sec-head">
         <span class="sec-num">03</span>
         <h2><span class="jx-name">United States</span>A state-led approach with a litigation backstop</h2>
       </div>
+      </div>
+      <div class="narrow">
       <p>In the United States, no single comprehensive federal AI law currently governs the field. Instead, the regulatory landscape is shaped by a combination of sector-specific oversight, emerging state legislation, and general legal principles.</p>
       <p>For biomedical AI, the Food and Drug Administration plays a central role, particularly through its regulation of software as a medical device. The FDA has also begun to articulate approaches to adaptive AI systems, signalling an awareness of the challenges posed by continuously learning models.</p>
       <p>Beyond sectoral oversight, states are increasingly active. Legislative initiatives, including those addressing automated decision-making and algorithmic accountability, are beginning to fill gaps at the federal level. For example, in California, the Transparency in Frontier Artificial Intelligence Act is particularly important for developers of large-scale models used in drug discovery or biological research, imposing transparency and safety-reporting obligations on &ldquo;frontier&rdquo; AI systems. New York has followed a similar path through its recent RAISE Act, further reinforcing state-level efforts to govern frontier AI development.</p>
       <p>Colorado&rsquo;s original Consumer Protections for Artificial Intelligence Act sought to mitigate algorithmic discrimination in high-risk AI systems, including those that may be used in consequential health-related decisions such as diagnostics and eligibility determinations. Although the legislation was subsequently revised and narrowed ahead of implementation, the new framework is expected to take effect on 1 January 2027 and continues to reflect concerns around fairness, bias, and accountability in automated decision-making. Utah, for its part, has adopted the Artificial Intelligence Policy Act, which focuses on disclosure obligations for generative AI interacting with consumers.</p>
       <p>In this fragmented context, the December 2025 Executive Order on Artificial Intelligence and the White House&rsquo;s National AI Legislative Framework (March 2026) were less about regulating AI directly than about signalling a federal preference for a more nationally consistent approach. Subsequent policy proposals and draft legislation suggest that federal pre-emption of at least some state AI requirements is no longer merely theoretical — although the United States remains, in practice, a predominantly state-led regulatory environment.</p>
       <p>In practice, liability exposure through litigation — whether through consumer protection claims, product liability, or class actions — will act as a significant deterrent and governance driver. In effect, the framework will rely heavily on post-deployment accountability, allowing systems to be introduced ahead of settled standards, but with legal risk realised later, sometimes in unpredictable ways. For companies, this may shift the focus from formal compliance to defensibility.</p>
+    </div>
     </section>
 
     <!-- (4) Singapore -->
     <section class="sec sg">
-      <div class="sec-head">
+      <div class="wide">
+        <div class="sec-head">
         <span class="sec-num">04</span>
         <h2><span class="jx-name">Singapore</span>A set of operational governance playbooks</h2>
       </div>
+      </div>
+      <div class="narrow">
       <p>Singapore offers a more pragmatic and operationally focused model. Rather than prioritising binding legislation, it has developed detailed governance frameworks and practical toolkits.</p>
       <p>The Model AI Governance Framework and associated initiatives include testing and assurance tools (AI Verify) designed to be directly implementable by organisations. The emphasis is on usability, clarity, and alignment with business processes.</p>
       <p>This approach reflects a different philosophy and is really unique globally. Instead of codifying obligations in law or relying on formal certifications, Singapore seeks to shape behaviour through guidance that organisations can adopt, test, and adapt. In biomedical contexts, this can be particularly effective, as organisations are provided with concrete methods to assess risk, document decisions, and embed governance into system development to fit their exact needs and risks.</p>
       <p>However, the model relies on voluntary adoption and does not carry the same legal force as statutory regimes. Its effectiveness therefore depends on organisational incentives and market expectations.</p>
+    </div>
     </section>
-  </div><!-- /container: jurisdictions 01–04 -->
 
   <!-- ── INTERACTIVE MAP (collapsible) ── -->
   <details class="map-disclosure" id="mapDisclosure">
@@ -1016,14 +1021,15 @@ details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(
     </figure>
   </details>
 
-  <div class="container"><!-- /container: convergence onward -->
-
     <!-- (5) Emerging convergence and the biomedical context -->
     <section class="sec">
-      <div class="sec-head">
+      <div class="wide">
+        <div class="sec-head">
         <span class="sec-num">05</span>
         <h2>Emerging convergence and the biomedical context</h2>
       </div>
+      </div>
+      <div class="narrow">
       <p>Despite these differences, a closer examination reveals a notable degree of convergence across jurisdictions around the core functions that AI governance must perform.</p>
       <div class="pills">
         <span class="pill">Accountability</span>
@@ -1049,15 +1055,16 @@ details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(
       <p>On that basis, some companies are already developing parallel compliance structures to anticipate future requirements while responding to present constraints, with internal standards often designed to be acceptable across multiple jurisdictions even where formal obligations differ.</p>
       <p>In that context, every design decision — whether related to data, oversight, validation or deployment — will align more naturally with certain governance models than others; and over time, as regulatory frameworks continue to evolve, these implicit choices will shape how easily these systems can adapt to enable responsible innovation under conditions of incomplete information.</p>
       <p>Future publications will focus on how organisations can operationalise existing standards, AI ethics principles and governance practices into practical frameworks for oversight, decision-making and implementation.</p>
+    </div>
     </section>
 
     <!-- SERIES FOOTER -->
+  <div class="narrow">
     <div class="series-foot">
       <div class="sf-label">About this series</div>
       <h3>AI Ethics &amp; Governance</h3>
       <p>This is the first article in an ongoing BioLiterate series examining how AI ethics and governance are taking shape across the biomedical field — from the global regulatory landscape to the practical decisions organisations face as they move from experimentation to responsible scale. Future instalments will build on the framework introduced here.</p>
     </div>
-
   </div>
 </article>
 
@@ -1123,6 +1130,22 @@ details.forEach(d=&gt;d.addEventListener(&quot;mouseenter&quot;,()=&gt;activate(
     window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fit, 180); });
     window.addEventListener('load', function () { setTimeout(fit, 400); });
   })();
+</script>
+
+<script>
+(function () {
+  if (window.self === window.top) return;
+  var last = 0;
+  function postHeight() {
+    var h = document.body.scrollHeight;
+    if (Math.abs(h - last) > 4) {
+      last = h;
+      parent.postMessage({ type: "reportHeight", height: h }, "*");
+    }
+  }
+  window.addEventListener("load", postHeight);
+  new ResizeObserver(postHeight).observe(document.body);
+})();
 </script>
 
 </body>

@@ -122,16 +122,19 @@ h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
 .usstates .badge{background:#d92323}.usfed .badge{background:#073a7a}.india .badge{background:#f58220}.brazil .badge{background:#558b2f}
 
 .bottom-axis{
-  height:94px;
   position:relative;
-  padding-top:14px;
+  padding-top:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:14px;
+  row-gap:8px;
+  align-items:start;
 }
 .pressure-line{
-  position:absolute;
-  top:14px;
-  left:0;
-  right:0;
+  grid-column:1 / -1;
+  position:relative;
   height:4px;
+  margin-bottom:6px;
   background:linear-gradient(90deg,var(--green),var(--orange),var(--red));
 }
 .pressure-line:after{
@@ -144,15 +147,16 @@ h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
   border-left:16px solid var(--red);
 }
 .axis-center{
-  position:absolute;
-  left:0; right:0;
-  top:50px;
+  grid-column:1 / -1;
   text-align:center;
   font-size:17px;
   font-weight:bold;
   letter-spacing:2px;
+  margin-top:2px;
 }
-.low,.high{position:absolute;top:26px;font-weight:bold;font-size:15px}.low{left:0;color:var(--green)}.high{right:0;color:var(--red);text-align:right}
+.low,.high{font-weight:bold;font-size:15px}
+.low{grid-column:1;color:var(--green);text-align:left}
+.high{grid-column:2;color:var(--red);text-align:right}
 .low small,.high small{display:block;color:#111;font-size:12px;font-weight:normal;line-height:1.25;margin-top:4px}
 
 .sidebar{grid-column:3/4;grid-row:1/span 2;border:1px solid #d6d6d6;border-radius:9px;background:white;overflow:hidden;min-height:746px}
@@ -226,60 +230,43 @@ h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
     font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.04em; color:#586070; }
   #ai-tip .tip-tier b{ color:var(--navy); font-weight:500; }
 
+  .scroll-hint{ display:none; }
+
   @media(max-width:760px){
     html,body{ overflow-x:hidden; overflow-x:clip; }
-    .layout{ grid-template-columns:140px minmax(0,1fr) !important; }
-    .left-axis{ grid-template-columns:1fr !important; column-gap:0 !important; }
+
+    /* Horizontal scroller: keep comfortable column widths and let the user
+       swipe sideways, instead of cramming the matrix into the screen. */
+    .layout{ grid-template-columns:160px minmax(560px,1fr) !important;
+      overflow-x:auto !important; -webkit-overflow-scrolling:touch; padding-bottom:10px; }
+    .left-axis{ position:sticky; left:0; z-index:20; background:#fbfaf6;
+      box-shadow:8px 0 8px -8px rgba(7,25,73,.14);
+      grid-template-columns:1fr !important; column-gap:0 !important; }
+    .chart-wrap{ position:relative; z-index:1; }
     .axis-title,.axis-arrow{ display:none !important; }
     .row-stack{ grid-column:1/-1 !important; }
     .row-label{ padding-right:8px; }
-    .bl-ico{ width:24px !important; height:24px !important; }
-    .row-label h3{ font-size:12px; }
-    .row-label p{ font-size:10.3px; line-height:1.22; }
-    .heading{ min-height:auto !important; grid-template-columns:1fr !important; padding:6px 9px !important; }
-    .heading h2{ font-size:12px; }
-    .heading p{ display:none !important; }
-    .country{ width:76px; min-height:62px; }
-    .country .badge{ width:34px; height:34px; font-size:18px; }
-    .country .name{ font-size:11px; }
-    .country small{ font-size:9.4px; }
+    .bl-ico{ width:26px !important; height:26px !important; }
+    .row-label h3{ font-size:12.5px; }
+    .row-label p{ font-size:10.6px; line-height:1.24; }
+    .heading{ min-height:auto !important; grid-template-columns:1fr !important; padding:8px 10px !important; }
+    .heading h2{ font-size:13px; }
+    .heading p{ display:block !important; font-size:10.5px; line-height:1.3; margin-top:3px; color:#333; }
+    .country{ width:84px; min-height:64px; }
+    .country .badge{ width:36px; height:36px; font-size:19px; }
+    .country .name{ font-size:11.5px; }
+    .country small{ font-size:9.8px; }
     .bottom-note{ grid-template-columns:1fr !important; }
-    #ai-tip{ width:230px; }
+    #ai-tip{ width:240px; max-width:86vw; }
 
-    /* Bottom axis: stop label collisions on phones — flow layout, drop the
-       redundant centred title since LOW/HIGH already read REGULATORY PRESSURE */
-    .bottom-axis{ height:auto !important; padding-top:10px !important;
-      display:flex !important; flex-wrap:wrap !important; align-items:flex-start !important; }
-    .pressure-line{ position:relative !important; top:auto !important; left:auto !important; right:auto !important;
-      flex:0 0 100% !important; margin-bottom:9px !important; }
-    .axis-center{ display:none !important; }
-    .low,.high{ position:static !important; top:auto !important; flex:1 1 50% !important;
-      font-size:12px !important; line-height:1.18 !important; }
-    .low{ padding-right:6px; text-align:left !important; }
-    .high{ padding-left:6px; text-align:right !important; }
-    .low small,.high small{ font-size:10px !important; margin-top:3px !important; }
-  }
-
-  /* Small phones: let the 3 column headers shrink so the matrix fits the
-     screen instead of forcing page-wide horizontal scroll */
-  @media(max-width:520px){
-    .layout{ grid-template-columns:90px minmax(0,1fr) !important; column-gap:9px !important; }
-    .top-headings{ min-width:0 !important; }
-    .heading{ min-width:0 !important; padding:5px 5px !important; gap:5px !important; }
-    .heading h2{ font-size:9.5px !important; letter-spacing:0 !important; }
-    .bl-ico{ width:20px !important; height:20px !important; }
-    .row-label h3{ font-size:11px !important; }
-    .row-label p{ font-size:9.6px !important; }
-    .country{ width:60px; min-height:56px; }
-    .country .badge{ width:30px; height:30px; font-size:16px; }
-    .country .name{ font-size:9.7px; }
-    .country small{ font-size:8.6px; }
-    #ai-tip{ width:210px !important; max-width:84vw !important; }
+    .scroll-hint{ display:block; text-align:center; margin:9px 0 2px;
+      font:600 12px/1 'DM Mono',monospace; letter-spacing:.04em; color:#6e7a96; }
   }
 </style>
 </head>
 
 <body>
+<div id="bl-build" style="position:fixed;top:6px;right:8px;z-index:99999;font:700 11px/1 'DM Mono',monospace;color:#fff;background:#0b6b3a;padding:4px 8px;border-radius:7px;box-shadow:0 2px 6px rgba(0,0,0,.25)">mobile v3 · scroll</div>
 <div class="page">
   <div class="kicker"><span class="kicker-pill">GLOBAL AI POLICY ANALYSIS • 2025–2026</span></div>
   <h1>AI Governance in a Fragmented Regulatory Landscape</h1>
@@ -350,12 +337,15 @@ h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
       <div class="detail" data-id="brazil"><div class="mini" style="background:#558b2f">✚</div><div><h4>Brazil</h4><p>AI Bill 2338/2023 remains in development; risk-based framework influenced by the EU approach.</p></div></div>
     </aside>
 
-    <div class="howto"><p><b>How to read it:</b> jurisdictions are mapped by regulatory philosophy (vertical) and regulatory pressure (horizontal); placement reflects governance maturity and implementation architecture rather than solely the binding nature of obligations. Hover or tap any jurisdiction for its status and approach.</p></div>
+  </div>
 
-    <div class="bottom-note">
-      <div class="source">Source: “AI Governance in a Fragmented Regulatory Landscape” • IFK BioLiterate AI Ethics & Governance Article 1<br><em>Note: Placement reflects governance maturity and implementation architecture rather than solely the legal binding nature of obligations.</em></div>
-      <div class="converge">Despite divergent approaches, jurisdictions converge around core governance expectations: <strong>accountability, transparency, risk management, controllability and auditability.</strong></div>
-    </div>
+  <div class="scroll-hint" aria-hidden="true">Swipe to explore the full map &rarr;</div>
+
+  <div class="howto"><p><b>How to read it:</b> jurisdictions are mapped by regulatory philosophy (vertical) and regulatory pressure (horizontal); placement reflects governance maturity and implementation architecture rather than solely the binding nature of obligations. Hover or tap any jurisdiction for its status and approach.</p></div>
+
+  <div class="bottom-note">
+    <div class="source">Source: “AI Governance in a Fragmented Regulatory Landscape” • IFK BioLiterate AI Ethics & Governance Article 1<br><em>Note: Placement reflects governance maturity and implementation architecture rather than solely the legal binding nature of obligations.</em></div>
+    <div class="converge">Despite divergent approaches, jurisdictions converge around core governance expectations: <strong>accountability, transparency, risk management, controllability and auditability.</strong></div>
   </div>
 </div>
 

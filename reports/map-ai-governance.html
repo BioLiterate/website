@@ -227,6 +227,7 @@ h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
   #ai-tip .tip-tier b{ color:var(--navy); font-weight:500; }
 
   @media(max-width:760px){
+    html,body{ overflow-x:hidden; overflow-x:clip; }
     .layout{ grid-template-columns:140px minmax(0,1fr) !important; }
     .left-axis{ grid-template-columns:1fr !important; column-gap:0 !important; }
     .axis-title,.axis-arrow{ display:none !important; }
@@ -244,6 +245,36 @@ h1{text-align:center;margin:0;font-size:48px;line-height:1.05;font-weight:800}
     .country small{ font-size:9.4px; }
     .bottom-note{ grid-template-columns:1fr !important; }
     #ai-tip{ width:230px; }
+
+    /* Bottom axis: stop label collisions on phones — flow layout, drop the
+       redundant centred title since LOW/HIGH already read REGULATORY PRESSURE */
+    .bottom-axis{ height:auto !important; padding-top:10px !important;
+      display:flex !important; flex-wrap:wrap !important; align-items:flex-start !important; }
+    .pressure-line{ position:relative !important; top:auto !important; left:auto !important; right:auto !important;
+      flex:0 0 100% !important; margin-bottom:9px !important; }
+    .axis-center{ display:none !important; }
+    .low,.high{ position:static !important; top:auto !important; flex:1 1 50% !important;
+      font-size:12px !important; line-height:1.18 !important; }
+    .low{ padding-right:6px; text-align:left !important; }
+    .high{ padding-left:6px; text-align:right !important; }
+    .low small,.high small{ font-size:10px !important; margin-top:3px !important; }
+  }
+
+  /* Small phones: let the 3 column headers shrink so the matrix fits the
+     screen instead of forcing page-wide horizontal scroll */
+  @media(max-width:520px){
+    .layout{ grid-template-columns:90px minmax(0,1fr) !important; column-gap:9px !important; }
+    .top-headings{ min-width:0 !important; }
+    .heading{ min-width:0 !important; padding:5px 5px !important; gap:5px !important; }
+    .heading h2{ font-size:9.5px !important; letter-spacing:0 !important; }
+    .bl-ico{ width:20px !important; height:20px !important; }
+    .row-label h3{ font-size:11px !important; }
+    .row-label p{ font-size:9.6px !important; }
+    .country{ width:60px; min-height:56px; }
+    .country .badge{ width:30px; height:30px; font-size:16px; }
+    .country .name{ font-size:9.7px; }
+    .country small{ font-size:8.6px; }
+    #ai-tip{ width:210px !important; max-width:84vw !important; }
   }
 </style>
 </head>

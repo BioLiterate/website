@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BioLiterate — Tagline vote (Board)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--ink:#01092D;--ink-soft:#1e3060;--ink-muted:#6b7899;--rule:#dde3f0;
+--accent:#032C7B;--accent-teal:#0063CE;--accent-warm:#c0392b;--lime:#A9EA65;--highlight:#F4FBEC;
+--font-display:'Manrope',sans-serif;--font-body:'Poppins',sans-serif;--font-mono:'DM Mono',monospace;
+--w:300px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#f6f8fb;font-family:var(--font-body);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.7}
+img{max-width:100%}
+.hero{background:var(--ink);color:#fff;padding:52px 40px 44px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(3,44,123,.65) 0%,transparent 70%)}
+.hero::after{content:'';position:absolute;bottom:-90px;left:28%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(0,99,206,.3) 0%,transparent 70%)}
+.hero-in{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.kick{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.kick .dot{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+.hero h1{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.14;letter-spacing:-.01em;margin-bottom:18px}
+.hero p{font-size:15px;color:rgba(255,255,255,.68);line-height:1.65;max-width:600px}
+.wrap{max-width:800px;margin:0 auto;padding:36px 40px 64px}
+.howto{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--accent-teal);border-radius:0 8px 8px 0;padding:18px 22px;font-size:13.5px;color:var(--ink-soft);line-height:1.65;margin-bottom:28px}
+.howto b{color:var(--ink)}
+.opt{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:20px 22px;margin-bottom:14px;cursor:pointer;display:flex;align-items:center;gap:20px;transition:box-shadow .16s cubic-bezier(.2,.7,.2,1),transform .16s cubic-bezier(.2,.7,.2,1),border-color .16s}
+.opt:hover{box-shadow:0 14px 34px -24px rgba(1,9,45,.5);transform:translateY(-1px);border-color:#c9d6ee}
+.opt.picked{border-color:var(--accent);box-shadow:0 14px 34px -26px rgba(1,9,45,.55)}
+.rank{width:44px;height:44px;flex-shrink:0;border-radius:50%;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:15px;color:var(--ink-muted);background:#fbfcfe}
+.opt.picked .rank{background:var(--accent);border-color:var(--accent);color:#fff}
+.body{min-width:0;flex:1}
+.num{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.stack{display:flex;flex-direction:column;gap:6px}
+.stack img.word{width:var(--w);height:auto;display:block}
+.tag{font-family:var(--font-display);font-weight:600;color:var(--ink);letter-spacing:-.005em;line-height:1.15;white-space:nowrap;font-size:calc(var(--k) * var(--w))}
+.tag em{font-style:normal;color:var(--accent-teal)}
+.o1{--k:.0516}.o2{--k:.0363}.o3{--k:.0409}.o4{--k:.0412}
+.dark-strip{background:var(--ink);border-radius:8px;padding:14px 16px;margin-top:14px;display:inline-block}
+.dark-strip img.word{filter:brightness(0) invert(1)}
+.dark-strip .tag{color:#fff}
+.dark-strip .tag em{color:var(--lime)}
+.meta{font-family:var(--font-mono);font-size:10px;color:var(--ink-muted);margin-top:12px}
+.actions{margin-top:28px;background:#fff;border:1px solid var(--rule);border-radius:10px;padding:22px 24px}
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:7px}
+.field input{width:100%;max-width:340px;font-family:var(--font-body);font-size:14px;color:var(--ink);padding:11px 13px;border:1px solid var(--rule);border-radius:6px;background:#fbfcfe}
+.field input:focus{outline:none;border-color:var(--accent-teal);background:#fff}
+.summary{font-size:13.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:16px}
+.summary b{color:var(--ink)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btns a,.btns button{font-family:var(--font-body);font-size:13px;font-weight:500;padding:12px 20px;border-radius:6px;border:1px solid var(--accent);cursor:pointer;text-decoration:none;background:#fff;color:var(--accent)}
+.btns .primary{background:var(--accent);color:#fff}
+.btns button:disabled,.btns a[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.status{margin-top:14px;font-size:13px;line-height:1.6;color:var(--accent);font-weight:500}
+.status.err{color:var(--accent-warm)}
+footer{background:var(--ink);color:rgba(255,255,255,.45);padding:26px 40px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer strong{color:rgba(255,255,255,.72)}
+a{color:var(--accent-teal)}a:hover{color:var(--accent)}
+@media(max-width:700px){
+  :root{--w:230px}
+  .hero{padding:40px 24px 34px}.wrap{padding:28px 24px 48px}
+  .opt{flex-direction:column;align-items:flex-start;gap:14px}
+  footer{padding:22px 24px}
+}
+@media(max-width:420px){:root{--w:180px}}
+</style></head><body>
+<div class="hero"><div class="hero-in">
+  <div class="kick"><span class="dot"></span> Board review · Brand</div>
+  <h1>Rank the tagline options</h1>
+  <p>Four candidate taglines for the BioLiterate signature lockup, shown at true size on white and reversed on Neural Night. Rank all four, then send your ranking — it opens a pre-filled email, nothing is stored on this page.</p>
+</div></div>
+
+<div class="wrap">
+  <div class="howto"><b>How to vote.</b> Add your name, then click the options in your order of preference — first click is your 1st choice, second click your 2nd, and so on. Click a ranked option again to clear it. When all four are ranked, you can submit.</div>
+
+  <div class="opt o1" data-num="01" data-plain="Advancing AI in Biomedicine, Responsibly">
+    <div class="rank">—</div>
+    <div class="body">
+      <div class="num">Option 01</div>
+      <div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">Advancing AI in Biomedicine, <em>Responsibly</em></div></div>
+      <div class="dark-strip"><div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">Advancing AI in Biomedicine, <em>Responsibly</em></div></div></div>
+      <div class="meta">40 characters</div>
+    </div>
+  </div>
+
+  <div class="opt o2" data-num="02" data-plain="The Community Advancing AI in Life Sciences, Responsibly">
+    <div class="rank">—</div>
+    <div class="body">
+      <div class="num">Option 02</div>
+      <div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">The Community Advancing AI in Life Sciences, <em>Responsibly</em></div></div>
+      <div class="dark-strip"><div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">The Community Advancing AI in Life Sciences, <em>Responsibly</em></div></div></div>
+      <div class="meta">56 characters</div>
+    </div>
+  </div>
+
+  <div class="opt o3" data-num="03" data-plain="The Community Advancing AI in Health, Responsibly">
+    <div class="rank">—</div>
+    <div class="body">
+      <div class="num">Option 03</div>
+      <div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">The Community Advancing AI in Health, <em>Responsibly</em></div></div>
+      <div class="dark-strip"><div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">The Community Advancing AI in Health, <em>Responsibly</em></div></div></div>
+      <div class="meta">49 characters</div>
+    </div>
+  </div>
+
+  <div class="opt o4" data-num="04" data-plain="Advancing the AI Community in Health, Responsibly">
+    <div class="rank">—</div>
+    <div class="body">
+      <div class="num">Option 04</div>
+      <div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">Advancing the AI Community in Health, <em>Responsibly</em></div></div>
+      <div class="dark-strip"><div class="stack"><img class="word" src="wordmark.png" alt="BioLiterate" width="5753" height="804"><div class="tag">Advancing the AI Community in Health, <em>Responsibly</em></div></div></div>
+      <div class="meta">49 characters</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="field"><label for="voter">Your name</label><input id="voter" type="text" placeholder="e.g. J. Smith" autocomplete="name"></div>
+    <div class="summary" id="summary"><b>Your ranking:</b> nothing ranked yet.</div>
+    <div class="btns">
+      <button class="primary" id="submit" type="button" disabled>Submit ranking →</button>
+      <a id="send" aria-disabled="true" href="#">Send by email instead</a>
+      <button id="copy" type="button">Copy ranking</button>
+      <button id="reset" type="button">Start over</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+</div>
+
+<footer><div><strong>BioLiterate</strong> — tagline vote, board round</div><div>bio-literate.org</div></footer>
+
+<script>
+// ── EDIT ME ──────────────────────────────────────────────────────────────
+// Where "Send by email instead" addresses its message:
+var VOTE_EMAIL = 'hello@bio-literate.org';
+// Optional: a form endpoint that accepts a POST and needs NO email client.
+// Paste a Formspree URL (https://formspree.io/f/xxxxxxx) or a Google Apps
+// Script web-app URL. Leave '' to hide Submit and use email/copy only.
+var FORM_ENDPOINT = '';
+// ─────────────────────────────────────────────────────────────────────────
+var order = [];
+var opts = Array.prototype.slice.call(document.querySelectorAll('.opt'));
+opts.forEach(function (el) {
+  el.addEventListener('click', function () {
+    var num = el.dataset.num, i = order.indexOf(num);
+    if (i > -1) order.splice(i, 1); else if (order.length < opts.length) order.push(num);
+    paint();
+  });
+});
+function voterName(){ return document.getElementById('voter').value.trim(); }
+function subject(){ var n = voterName(); return 'Tagline vote — ranking' + (n ? ' — ' + n : ''); }
+function rankingLines(){
+  return order.map(function (n, i) {
+    var el = document.querySelector('.opt[data-num="' + n + '"]');
+    return (i + 1) + '. Option ' + n + ' — ' + el.dataset.plain;
+  });
+}
+function bodyText(){
+  var n = voterName();
+  return (n ? n + '\u2019s' : 'My') + ' ranking of the BioLiterate tagline options:\n\n' + rankingLines().join('\n') + '\n\nComments:\n';
+}
+function setStatus(msg, isErr){
+  var s = document.getElementById('status');
+  s.textContent = msg; s.className = 'status' + (isErr ? ' err' : '');
+}
+function paint(){
+  opts.forEach(function (el) {
+    var pos = order.indexOf(el.dataset.num);
+    if (pos > -1) el.classList.add('picked'); else el.classList.remove('picked');
+    el.querySelector('.rank').textContent = pos > -1 ? pos + 1 : '—';
+  });
+  var summary = document.getElementById('summary'), send = document.getElementById('send');
+  summary.innerHTML = order.length
+    ? '<b>Your ranking:</b> ' + order.map(function (n, i) { return (i + 1) + '. Option ' + n; }).join(' · ')
+    : '<b>Your ranking:</b> nothing ranked yet.';
+  var complete = order.length === opts.length;
+  send.setAttribute('aria-disabled', complete ? 'false' : 'true');
+  document.getElementById('submit').disabled = !complete;
+  send.href = complete
+    ? 'mailto:' + VOTE_EMAIL + '?subject=' + encodeURIComponent(subject()) + '&body=' + encodeURIComponent(bodyText())
+    : '#';
+}
+document.getElementById('voter').addEventListener('input', paint);
+document.getElementById('reset').addEventListener('click', function () { order.length = 0; setStatus(''); paint(); });
+document.getElementById('copy').addEventListener('click', function () {
+  if (order.length !== opts.length) { setStatus('Rank all four options first.', true); return; }
+  var text = bodyText();
+  function ok(){ setStatus('Ranking copied — paste it into an email, Slack or a reply.'); }
+  function fail(){ setStatus('Copy failed — select the ranking above and copy it manually.', true); }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fail);
+  else {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); ok(); } catch (e) { fail(); }
+    document.body.removeChild(ta);
+  }
+});
+document.getElementById('submit').addEventListener('click', function () {
+  var btn = this;
+  btn.disabled = true; setStatus('Sending…');
+  fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      name: voterName() || '(not given)',
+      ranking: order.map(function (n, i) { return (i + 1) + ': Option ' + n; }).join(', '),
+      detail: rankingLines().join(' | ')
+    })
+  }).then(function (res) {
+    if (!res.ok) throw new Error(res.status);
+    setStatus('Thank you — your ranking has been recorded.');
+    document.getElementById('copy').style.display = 'none';
+    document.getElementById('send').style.display = 'none';
+  }).catch(function () {
+    btn.disabled = false;
+    setStatus('Could not submit. Use “Send by email instead” or “Copy ranking”.', true);
+  });
+});
+if (!FORM_ENDPOINT) {
+  document.getElementById('submit').style.display = 'none';
+  var s = document.getElementById('send');
+  s.textContent = 'Send my ranking →'; s.className = 'primary';
+}
+paint();
+</script>
+</body></html>
